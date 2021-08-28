@@ -1,0 +1,9 @@
+{
+    "name":"project/model",
+    "description": "Curtly - Encurtador de URLS",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
