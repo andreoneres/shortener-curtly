@@ -121,6 +121,14 @@ a {
     border-bottom: 1px solid white;
 }
 
+#btn-login {
+    background-color: #fff;
+    border-radius: 30px;
+    color: #4b5ec9;
+    font-weight: 400;
+    padding: 10px 30px;
+}
+
 /* MENU MOBILE */
 .menu-mobile {
     display: none;

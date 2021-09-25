@@ -27,8 +27,29 @@ $obRouter->get('/404',[
 
 //ROTA HOME 
 $obRouter->get('/home',[
+    'middlewares' =>[
+        'authenticatedUser',
+    ],
     function() {
         return new Response(200,Controll\Home::getHome());
+    }
+]);
+
+// ROTA LOGOUT
+$obRouter->get('/logout',[
+    function () {
+        return new Response(200,Controll\Logout::logout());
+    }
+]);
+
+
+//ROTA LINKS 
+$obRouter->get('/links',[
+    'middlewares' =>[
+        'authenticatedUser',
+    ],
+    function() {
+        return new Response(200,Controll\Links::getView());
     }
 ]);
 

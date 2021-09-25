@@ -36,13 +36,13 @@
     <nav class="nav">
         <ul class="nav-list">
             <li class="nav-item">
-                <a href="/home">
+                <a onclick="requisitarPagina('home')">
                     <i><img src="assets/svg/dashboard.svg" alt=""></i> Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a onclick="requisitarPagina('tarefas')">
-                    <i><img src="assets/svg/atividade.svg" alt=""></i> Tarefas
+                <a onclick="requisitarPagina('links')">
+                    <i><img src="assets/svg/atividade.svg" alt=""></i> Links
                 </a>
             </li>
             

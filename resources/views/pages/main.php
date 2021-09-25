@@ -8,13 +8,14 @@ $server = "http://localhost"
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/404.css">
-    <script src="assets/js/main.js"></script>
-    <link rel="shortcut icon" href="assets/imgs/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200&family=Roboto:wght@300&family=Roboto:wght@400&family=Roboto:wght@500&family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/imgs/favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/404.css">
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/events.js"></script>
     <title>Curtly - Encurtador de URLs</title>
 </head>
 
@@ -49,7 +50,7 @@ $server = "http://localhost"
                             <li><a href="/">Home</a></li>
                             <li><a href="/#whys">Sobre</a></li>
                             <li><a href="mailto:encurtadorcurtly@gmail.com">Contato</a></li>
-                            <li><a href="login">Login</a></li>
+                            <li><a id="btn-login" href="login">Login</a></li>
                         </ul>
                     </div>
                     <div class="menu-icon">

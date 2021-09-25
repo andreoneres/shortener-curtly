@@ -19,7 +19,7 @@ class Main extends Page {
             $linkoriginal = filter_var($post['originalink'], FILTER_SANITIZE_URL);
             $linkpersonalizado = filter_var($post['customlink'], FILTER_SANITIZE_STRING);
 
-            if ($linkoriginal !== "") {
+            if ($linkoriginal != "") {
                 if (strpos($linkoriginal, '.')) {
                     $linkoriginal = Utils::formatLink($linkoriginal);
                     if ($linkpersonalizado === "") {
