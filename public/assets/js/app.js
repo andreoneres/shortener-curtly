@@ -14,10 +14,6 @@ async function requisitarPagina(url) {
 
     window.history.pushState("page2", "Title", `/${url}`);
 
-    if(url == 'home') {
-      createChart()
-    }
-
   } catch (error) {
     console.log(error);
   }

@@ -59,7 +59,9 @@
                         <h3>Criado em 10 de abril de 2021</h3>
                     </div>
                     <div class="qrcod-details">
-                        <h3>linkQRCOD</h3>
+                        <?php
+                        echo '<img src="' . (new \chillerlan\QRCode\QRCode)->render('https://youtube.com/sadasdadddddddddddddddddda') . '" alt="QR Code" />';
+                        ?>
                     </div>
                     <div class="title-details-link">
                         <h3>Vídeo Clipe Gabriel o Pensador</h3>
@@ -83,4 +85,31 @@
             </div>
         </div>
     </div>
+    <nav class="menu-create-link">
+        <div class="topmenu">
+            <h2 class="title"></h2>
+            <a id="close"><img src="<?= $server ?>/assets/svg/fecharmenu.svg" alt=""></a>
+        </div>
+        <div class="menu-tab">
+            <form action="">
+                <div class="form-group">
+                    <label for="">Título</label>
+                    <input type="text" name="" id="" class="inputs" required>
+                </div>
+                <div class="form-group">
+                    <label for="">URL Original</label>
+                    <input type="text" name="" id="" class="inputs" required>
+                </div>
+                <div class="form-group">
+                    <label for="">URL Personalizada (Opcional)</label>
+                    <input type="text" name="" id="" class="inputs">
+                </div>
+                <div class="form-group">
+                    <label for="">Expiração</label><br>
+                    <input type="date" name="" id="" class="inputs">
+                </div>
+                <button class="btn-submit" style="outline: none;" type="submit">Encurtar</button>
+            </form>
+        </div>
+    </nav>
 </div>
