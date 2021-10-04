@@ -292,13 +292,31 @@ user-select: none;
 .form-search {
     background-color: #fff;
     border-radius: 30px;
-    margin-right: 108px;
+    margin-right: 72px;
+}
+
+.form-search-link {
+    display: flex;
+    align-items: center;
 }
 
 #search {
     padding: 18px 29px;
     border: none;
     border-radius: 25px;
+}
+
+#btn-search {
+    outline: none;
+    background-image: url('../svg/search.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 35px;
+    height: 48px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+    margin-right: 12px;
 }
 
 .links {
@@ -313,6 +331,7 @@ user-select: none;
     margin: 10px 0px;
     width: 519px;
     height: 127px;
+    cursor: pointer;
 }
 
 .custom-single-link, .custom-details-link > h3 {

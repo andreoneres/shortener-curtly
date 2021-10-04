@@ -1,10 +1,10 @@
-<div class="conteudo">
+<main class="conteudo">
     <div class="container1">
         <div class="top">
             <div class="form-search">
-                <form action="" method="get">
+                <form class="form-search-link" action="" method="get">
                     <input type="text" name="" id="search" placeholder="Buscar...">
-                    <button type="submit"><i></i></button>
+                    <button type="submit" id="btn-search"><i></i></button>
                 </form>
             </div>
             <span>4 resultados</span>
@@ -70,15 +70,15 @@
                         <h3>https://youtube.com/sadasdadddddddddddddddddda</h3>
                     </div>
                     <div class="custom-details-link">
-                        <h3>curtly.ml/gabrielopensador</h3>
+                        <h3 id="custom-link">curtly.ml/gabrielopensador</h3>
                     </div>
                     <div class="clicks-details-link">
                         <h3>1 clique</h3>
                     </div>
                 </div>
                 <div class="links-buttons">
-                    <button>Editar</button>
-                    <button>Copiar</button>
+                    <button id="edit-link">Editar</button>
+                    <button onclick="copyLink()">Copiar</button>
                     <button>QR Code</button>
                     <button>Deletar</button>
                 </div>
@@ -112,4 +112,12 @@
             </form>
         </div>
     </nav>
-</div>
+</main>
+<script>
+  function copyLink() {
+    var textCopy = document.getElementById("custom-link");
+    textoCopiado.select();
+    document.execCommand("Copy");
+    document.querySelector("#btncopy").innerHTML = "URL Copiada!";
+  }
+</script>
