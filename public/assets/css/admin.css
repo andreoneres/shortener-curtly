@@ -281,8 +281,6 @@ user-select: none;
     background-color: #fff;
 }
 
-/* CONTENT */
-
 .top {
     display: flex;
     align-items: center;
@@ -350,9 +348,24 @@ user-select: none;
     font-weight: bolder;
 }
 
+.pages {
+    display: flex;
+}
+
+.infos-pages {
+    margin-right: 7px;
+}
+
+.page {
+    margin: 0px 4px;
+    cursor: pointer;
+}
+
+/* DIV DE DETALHES DO LINK */
+
 .links-details {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 607px;
     height: 363px;
@@ -429,8 +442,8 @@ canvas {
 }
 
 /* CRIAR LINK */
-/* MENU MOBILE */
-.menu-create-link {
+
+.menu-link {
     display: none;
     flex-direction: column;
     position: fixed;

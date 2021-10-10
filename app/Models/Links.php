@@ -4,93 +4,77 @@ namespace App\Models;
 
 use App\Database\Database;
 use App\Utils\Utils;
+use App\Database\Pagination;
 
 class Links {
-
-    /**
-     *  Método responsável por inserir o link gerado aleatoriamente no banco.
-     *  @return array
-     */
-    public static function randomlink($originallink) {
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $data = Date('Y-m-d H:i:s');
-        //VERIFICA SE O LINK ORIGINAL JÁ EXISTE NO BANCO
-        if (self::checkOriginalLinkExists($originallink) !== 1) {
-            //VERIFICA SE A URL A SER ENCURTADA É VÁLIDA
-            if (Utils::validateUrl($originallink) == 1) {
-                //GERA UMA STRING ALEATÓRIA
-                $shortenedlink = Utils::generateRandomString();
-                $values = ['original_link' => $originallink, 'shortened_link' => $shortenedlink, 'ip' => $ip, 'date' => $data];
-                //CHAMA O MÉTODO PARA INSERIR NO BANCO DE DADOS
-                $linke = (new Database("links"))->insert($values);
-                if ($linke !== 0) {
-                    $message = "Link encurtado com sucesso!";
-                } else {
-                    $error = "Ocorreu algum erro ao cadastrar. Contate algum administrador.";
-                }
-            } else {
-                $error = "Link inválido. Verifique a URL digitada ou se o site está online.";
-            }
-        } else {
-            $message = "Link encurtado com sucesso!";
-            //CASO JÁ EXISTA UM LINK ENCURTADO PARA A URL DIGITADA, RETORNA A DO BANCO
-            $shortenedlink = self::getShortenedLink($originallink)['shortened_link'];
-        }
-
-        $dados = [
-            'originallink' => $originallink,
-            'linkshortened' => $shortenedlink,
-            'message' => $message,
-            'error' => $error
-        ];
-
-        return $dados;
-    }
 
     /**
      *  Método responsável por inserir o link personalizado no banco.
      *  @return array
      */
-    public static function customlink($originallink, $customlink) {
+    public static function createLink($post) {
         $ip = $_SERVER['REMOTE_ADDR'];
         $date = Date('Y-m-d H:i:s');
-        $customlink = str_replace(" ", "", trim($customlink));
-        //VERIFICA SE O LINK PERSONALIZADO JÁ EXISTE NO BANCO
-        if (self::checkCustomLinkExists($customlink) !== 1) {
-            if (!preg_match('/[^a-zA-Z0-9_-]+/', $customlink)) {
-                $originallink = Utils::formatLink($originallink);
-                // VERIFICA SE A URL A SER ENCURTADA É VÁLIDA
-                if (Utils::validateUrl($originallink) == 1) {
-                    //VERIFICA SE JÁ EXISTE UM LINK ENCURTADO PARA A URL DIGITADA, CASO NÃO JÁ CRIA UM PARA O LINK
-                    if (self::checkShortenedLinkExistsbyOriginal($originallink) !== 1) {
-                        $linkrandom = Utils::generateRandomString();
-                    } else {
-                        $linkrandom = NULL;
-                    }
-                    $values = ['original_link' => $originallink, 'shortened_link' => $linkrandom, 'custom_link' => $customlink, 'ip' => $ip, 'date' => $date];
-                     //CHAMA O MÉTODO PARA INSERIR NO BANCO DE DADOS
-                    $shortenedlink = (new Database("links"))->insert($values);
-                    if ($shortenedlink !== 0) {
-                        $message = "Link encurtado com sucesso!";
-                    } else {
-                        $error = "Ocorreu algum erro ao cadastrar. Contate algum administrador.";
-                    }
+
+        $iduser = $post->iduser ?? NULL;
+        $title = $post->title ?? NULL;
+        $originallink = $post->originallink;
+        $customlink = $post->customlink;
+
+
+        if(strlen($customlink)) {
+            if (self::checkLinkExists($customlink) == 1) {
+                return ["error" => "Este link personalizado já existe!"];
+            } 
+            if (preg_match('/[^a-zA-Z0-9_-]+/', $customlink)) {
+                return ["error" => "Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
+            }
+            $customlink = str_replace(" ", "", trim($customlink));
+        } 
+
+        if (!preg_match('/[^a-zA-Z0-9_-]+/', $originallink)) {
+            return ["error" => "Link inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
+        }
+        
+        $originallink = Utils::formatLink($originallink);
+            // VERIFICA SE A URL A SER ENCURTADA É VÁLIDA
+            if (Utils::validateUrl($originallink) == 1) {
+                //VERIFICA SE JÁ EXISTE UM LINK ENCURTADO PARA A URL DIGITADA, CASO NÃO JÁ CRIA UM PARA O LINK
+                if (self::checkLinkExists($originallink) == 1 && !strlen($customlink)) {
+                    $shortenedlink = self::getShortenedLink($originallink);
                 } else {
-                    $error = "Link inválido. Verifique a URL digitada ou se o site está online.";
+                    $shortenedlink = Utils::generateRandomString();
+                    $values = [
+                        'ID_USER' => $iduser, 
+                        'TITLE' => $title, 
+                        'ORIGINAL' => $originallink, 
+                        'SHORTENED' => strlen($customlink) ? NULL : $shortenedlink, 
+                        'CUSTOM' => !strlen($customlink) ? NULL : $customlink, 
+                        'IP' => $ip, 
+                        'CREATE_DATE' => $date];
+                     //CHAMA O MÉTODO PARA INSERIR NO BANCO DE DADOS
+                    $insert = (new Database("LINKS"))->insert($values);
+                }
+                if ($insert !== 0) {
+                    $message = "Link encurtado com sucesso!";
+                } else {
+                    $error = "Ocorreu algum erro ao cadastrar. Contate algum administrador.";
+                
                 }
             } else {
-                $error = "Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos.";
+                $error = "Link inválido. Verifique a URL digitada ou se o site está online.";
             }
-        } else {
-            $error = "Este link personalizado já existe!";
-        }
+        
+            $dados = [
+                'originallink' => $originallink,
+                'linkshortened' => $shortenedlink,
+                'message' => $message,
+                'error' => $error
+            ];
 
-        $dados = [
-            'originallink' => $originallink,
-            'linkshortened' => $customlink,
-            'message' => $message,
-            'error' => $error
-        ];
+        if(strlen($customlink)) {
+            $dados['linkshortened'] = $customlink;
+        }
 
         return $dados;
     }
@@ -99,36 +83,31 @@ class Links {
      *  Método responsável por verificar se o link original recebido existe.
      *  @return int
      */
-    public static function checkOriginalLinkExists($link) {
-        $result = (new Database("links"))->select("original_link = '{$link}'", null, null, "original_link");
+    public static function checkLinkExists($link) {
+        $fields = '*';
+        $where = "ORIGINAL = '{$link}' OR SHORTENED = '{$link}' OR CUSTOM = '{$link}'";
+        $result = (new Database("LINKS"))->select($fields, $where);
         return $result ? 1 : 0;
     }
 
     /**
-     *  Método responsável por verificar se o link encurtado recebido existe.
+     *  Método responsável por verificar se o link original recebido existe.
      *  @return int
      */
-    public static function checkShortenedLinkExists($link) {
-        $result = (new Database("links"))->select("shortened_link = '{$link}'", null, null, "shortened_link");
-        return $result ? 1 : 0;
+    public static function getLinksByUser($iduser, $post) {
+        $links = (new Database("LINKS"))->select("*", "ID_USER = '{$iduser}'");
+
+        $result = self::generatePagination($post, $pagination, $links);
+        return $result;
     }
 
     /**
-     *  Método responsável por verificar se o link encurtado recebido existe a partir do link original.
+     *  Método responsável por verificar se o link original recebido existe.
      *  @return int
      */
-    public static function checkShortenedLinkExistsbyOriginal($link) {
-        $result = (new Database("links"))->select("original_link = '{$link}'", null, null, "shortened_link");
-        return $result ? 1 : 0;
-    }
-
-     /**
-     *  Método responsável por verificar se o link personalizado existe.
-     *  @return int
-     */
-    public static function checkCustomLinkExists($link) {
-        $result = (new Database("links"))->select("custom_link = '{$link}'", null, null, "custom_link");
-        return $result ? 1 : 0;
+    public static function getLinkById($idlink) {
+        $result = (new Database("LINKS"))->select("*", "ID_LINK = '{$idlink}'");
+        return $result[0];
     }
 
     /**
@@ -136,8 +115,8 @@ class Links {
      *  @return int
      */
     public static function getOriginalLink($link) {
-        $result = (new Database("links"))->select("shortened_link = '{$link}' OR custom_link = '{$link}'", null, null, "original_link");
-        return $result[0];
+        $result = (new Database("LINKS"))->select("ORIGINAL", "SHORTENED = '{$link}' OR CUSTOM = '{$link}'");
+        return $result[0]["ORIGINAL"];
     }
 
     /**
@@ -145,8 +124,8 @@ class Links {
      *  @return int
      */
     public static function getShortenedLink($link) {
-        $result = (new Database("links"))->select("original_link = '{$link}'", null, null, "shortened_link");
-        return $result[0];
+        $result = (new Database("LINKS"))->select("SHORTENED", "ORIGINAL = '{$link}'");
+        return $result[0]["SHORTENED"];
     }
 
     /**
@@ -154,7 +133,30 @@ class Links {
      *  @return int
      */
     public static function getCustomLink($link) {
-        $result = (new Database("links"))->select("original_link = '{$link}'", null, null, "custom_link");
-        return $result[0];
+        $result = (new Database("LINKS"))->select("CUSTOM", "ORIGINAL = '{$link}'");
+        return $result[0]["CUSTOM"];
+    }
+
+    public static function generatePagination($post, &$pagination, $links)
+    {
+        $currentPage = $post->pagina ?? 1;
+
+        $count = count($links);
+
+        $pagination = new Pagination($count, $currentPage, 3);
+        $limit = $pagination->getLimit(); // responsavel por pegar os items corretos das paginas
+        $limite = explode(',', $limit);
+
+        for($i = $limite[0]; $i < $limite[1] + $limite[0]; $i++ ){
+            if(!is_null($links[$i])) {
+                $result[] = $links[$i];
+            }
+        }
+
+        return [
+            'links' => $result,
+            'pagination' => $pagination->getCurrentPage(),
+            'totalPages' => $pagination->getTotalPage()
+        ];
     }
 }

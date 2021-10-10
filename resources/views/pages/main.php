@@ -98,7 +98,7 @@ $server = "http://localhost"
                         <div class="form-single form-padd" id="form-1">
                             <div class="form-left">
                                 <div class="icon-form"></div>
-                                <input type="text" name="originalink" id="originallink" size="40" placeholder="Digite o seu link aqui..." value="<?= $originallink ?>" autocomplete="off" required>
+                                <input type="text" name="originallink" id="originallink" size="40" placeholder="Digite o seu link aqui..." value="<?= $originallink ?>" autocomplete="off" required>
                             </div>
                             <div class="form-right">
                                 <button id="btn-1" type="submit">Encurtar</button>

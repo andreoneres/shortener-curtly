@@ -45,34 +45,3 @@ window.addEventListener("load",function(event) {
     });
 },false);
 
-// window.addEventListener("load",function(event) {
-//     var input = document.querySelector("#originallink");
-//     var inputperso = document.querySelector("#customlink");
-//     var form1 = document.querySelector("#form-1");
-//     var form2 = document.querySelector("#form-2");
-//     var body = document.querySelector(".body");
-
-//     input.addEventListener("click", function (e) {
-//         console.log(e.target.id)
-//         if(e.target.id == "originallink") {
-//             form1.style.borderBottom = "3px solid #FF9600";
-//         } 
-//     });
-
-//     inputperso.addEventListener("click", function (e) {
-//         if(e.target.id == "customlink") {
-//             form2.style.borderBottom = "3px solid #FF9600";
-//         } 
-//     });
-
-//     body.addEventListener("click", function (e) {
-//         console.log(e.target.id)
-//         if(e.target.id !== "originallink") {
-//             form1.style.borderBottom = "none";
-//         } 
-
-//         if(e.target.id !== "customlink") {
-//             form2.style.borderBottom = "none";
-//         } 
-//     });
-// },false);

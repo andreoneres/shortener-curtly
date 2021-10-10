@@ -17,12 +17,12 @@ class Redirect extends Page {
         $url = explode("/", $uri);
     
         //VERIFICA SE O LINK EXISTE NO BANCO, CASO EXISTA, REDIRECIONA PARA O SITE
-        if(Links::checkShortenedLinkExists($url[1]) == 1) {
+        if(Links::checkLinkExists($url[1]) == 1) {
             $originallink = Links::getOriginalLink($url[1]);
             header('Location: ' . Utils::formatLink($originallink['original_link']));
             die();
         //VERIFICA SE O LINK EXISTE NO BANCO, CASO EXISTA, REDIRECIONA PARA O SITE
-        } else if(Links::checkCustomLinkExists($url[1]) == 1) { 
+        } else if(Links::checkLinkExists($url[1]) == 1) { 
             $originallink = Links::getOriginalLink($url[1]);
             header('Location: ' . Utils::formatLink($originallink['original_link']));
             die();

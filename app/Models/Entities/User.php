@@ -32,7 +32,7 @@ class User {
     }
 
     public function createUser() {
-        $user = new Database('USUARIOS');
+        $user = new Database('USERS');
   
         $email = $user->select(
           'EMAIL',"EMAIL = '". $this->EMAIL . "'");
@@ -52,7 +52,7 @@ class User {
 
     public function updateUser($cod){
        
-        $dbUser = new Database('USUARIOS');
+        $dbUser = new Database('USERS');
   
         $values = $this->getValues();
         
@@ -83,7 +83,7 @@ class User {
       public static function getAll(){
         $fields = "ID_USER, NAME, EMAIL, PASSWORD, LAST_LOGIN";
         
-        $users = (new Database('USUARIOS'))->select($fields);
+        $users = (new Database('USERS'))->select($fields);
   
         return $users;
   
@@ -93,7 +93,7 @@ class User {
   
         $fields = "ID_USER, NAME, EMAIL, PASSWORD, LAST_LOGIN";
         $where = "ID_USER = '{$id}'";
-        $user = (new Database('USUARIOS'))->select($fields, $where);
+        $user = (new Database('USERS'))->select($fields, $where);
   
         return $user;
   

@@ -11,11 +11,13 @@ class User{
     * @param array
     * @return array
     */
-    public static function createUser($post){
+    public static function createUser($request){
+        
+        $post = $request->getPostVars();
     
-        if(strlen($post->senha) && strlen($post->confirmsenha)){
-            if($post->confirmsenha == $post->senha){
-                $post->senha = password_hash($post->senha, PASSWORD_DEFAULT);
+        if(strlen($post->password) && strlen($post->confirmpassword)){
+            if($post->confirmpassword == $post->password){
+                $post->password = password_hash($post->password, PASSWORD_DEFAULT);
             }else{
                 throw new \Exception('A senha definida não é a mesma!', 200);
             }
@@ -23,7 +25,7 @@ class User{
             throw new \Exception('Dados não preenchidos corretamente!', 200);
         }
 
-        if(strlen($post->nome) || strlen($post->login) || strlen($post->grupo) || strlen($post->permissoes)){
+        if(strlen($post->nome) || strlen($post->email)){
             
             return (new Model\User($post))->createUser();
             

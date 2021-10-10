@@ -20,7 +20,7 @@
     <title>Gerenciador - Curtly</title>
 </head>
 
-<body class="body" onload="createChart()">
+<body class="body">
 
     <header class="header">
         <div class="containertop">
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="topbar_arearight">
-                <button class="create-link">CRIAR LINK</button>
+                <button class="create-link" onclick="createLink(<?= $details['ID_LINK'] ?>)">CRIAR LINK</button>
                 <!-- ÍCONE DO USUÁRIO -->
                 <div class="icon_user">
                     <img src="assets/img/semfoto.jpg" alt="">

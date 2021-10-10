@@ -61,13 +61,13 @@ class View {
         
         // Pega o array e tranforma em variaveis
         if(count($params) > 0) {
-            foreach($params['data'] as $key => $value) {
+            foreach($params as $key => $value) {
                 if(strlen($key) > 0) {
                     ${$key} = $value;
                 }
             }
         }
-
+     
         //Retorna Conteúdo Renderizado
         require_once(TEMPLATE_PATH. '/header.php');
         require_once($contentView);

@@ -11,15 +11,13 @@ class Login{
     * @return object
     */
     public static function validateData($post) {
-       
         $fields = '*';
-        $where = "EMAIL = '" . $post['email'] . "'";
+        $where = "EMAIL = '" . $post->email . "'";
         $user = (new Database('USERS'))->select($fields, $where)[0];
-        
         
         if(!$user){
             throw new \Exception('Usuário inexistente!', 200);
-        } else if(!password_verify($post['password'], $user['PASSWORD'])){
+        } else if(!password_verify($post->password, $user['PASSWORD'])){
             throw new \Exception('Senha incorreta!', 200);
         }
 
@@ -35,16 +33,14 @@ class Login{
         $where = "ID_USER = {$user['ID_USER']}";
         $resultado = (new Database('USERS'))->update($values, $where);
 
-        // $ip = $_SERVER['REMOTE_ADDR'];
+        $ip = $_SERVER['REMOTE_ADDR'];
 
-        // $values = [
-        //     'IP' => $ip,
-        //     'USUARIO' => $user['LOGIN'],
-        //     'ACAO' => 'Iniciou sessão',
-        //     'DATA' => date('Y-m-d'),
-        //     'HORA' => date('H:i:s'),
-
-        // ];
-        // $log = (new Database('LOGS'))->insert($values);
+        $values = [
+            'IP' => $ip,
+            'ID_USER' => $user['ID_USER'],
+            'ACTION' => 'Iniciou sessão',
+            'DATA' => date('Y-m-d H:i:s')
+        ];
+        $log = (new Database('LOGS'))->insert($values);
     }
 }
