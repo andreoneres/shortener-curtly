@@ -248,4 +248,17 @@ class Database{
     //RETORNA SUCESSO
     return 'Dados deletados com sucesso!';
   }
+
+  public static function logs($user, $action) {
+
+    $ip = $_SERVER['REMOTE_ADDR'];
+
+    $values = [
+        'IP' => $ip,
+        'ID_USER' => $user,
+        'ACTION' => $action,
+        'DATA' => date('Y-m-d H:i:s')
+    ];
+    $log = (new Database('LOGS'))->insert($values);
+}
 }

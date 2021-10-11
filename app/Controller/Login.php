@@ -32,10 +32,10 @@ class Login extends Page {
         if(is_array($user)) {
             Session::setUser($user);
             Message::setSuccess('Login Realizado!');
-            $request->getRouter()->redirect('/home');
         } else {
             Message::setError($user);
-            $request->getRouter()->redirect('/login');
-        }  
+        }
+
+        return $user;
     }
 }

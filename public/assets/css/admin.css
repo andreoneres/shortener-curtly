@@ -238,6 +238,10 @@ body {
 user-select: none;
 }
 
+#logout {
+    cursor: pointer;
+}
+
 .conf_items > a > img {
     margin-right: 8px;
 }
@@ -361,6 +365,14 @@ user-select: none;
     cursor: pointer;
 }
 
+#btn-cr-link {
+    padding: 12px 51px;
+    outline: none;
+    border: none;
+    background-color: #4b5ec9;
+    color: #fff;
+}
+
 /* DIV DE DETALHES DO LINK */
 
 .links-details {
@@ -373,10 +385,18 @@ user-select: none;
     padding: 20px;
 }
 
+.iduser {
+    width:0px;
+    position: absolute;
+}
+
 .links-info {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 15px;
+    width: 72%;
+    word-break: break-word;
 }
 
 .date-details-create > h3, .qrcod-details > h3, .title-details-link > h3, .original-details-link > h3, .custom-details-link > h3, .clicks-details-link > h3 {
@@ -443,7 +463,7 @@ canvas {
 
 /* CRIAR LINK */
 
-.menu-link {
+.menu-create-link, .menu-edit-link {
     display: none;
     flex-direction: column;
     position: fixed;
@@ -455,7 +475,7 @@ canvas {
     z-index: 9;
 }
 
-#close {
+#close-edit, #close-create {
     cursor: pointer;
 }
 

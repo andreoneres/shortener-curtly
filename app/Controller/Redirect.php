@@ -17,18 +17,9 @@ class Redirect extends Page {
         $url = explode("/", $uri);
     
         //VERIFICA SE O LINK EXISTE NO BANCO, CASO EXISTA, REDIRECIONA PARA O SITE
-        if(Links::checkLinkExists($url[1]) == 1) {
-            $originallink = Links::getOriginalLink($url[1]);
-            header('Location: ' . Utils::formatLink($originallink['original_link']));
-            die();
-        //VERIFICA SE O LINK EXISTE NO BANCO, CASO EXISTA, REDIRECIONA PARA O SITE
-        } else if(Links::checkLinkExists($url[1]) == 1) { 
-            $originallink = Links::getOriginalLink($url[1]);
-            header('Location: ' . Utils::formatLink($originallink['original_link']));
-            die();
-        //VERIFICA SE O PROTOCOLO É HTTP, CASO SEJA, REDIRECIONA PARA O HTTPS
-        } else if ($_SERVER["REQUEST_SCHEME"] == "http") {
-            header("Location:" .URL."{$uri}" );
+        if(Links::checkLinkExists($url[3]) == 1) {
+            $originallink = Links::getOriginalLink($url[3]);
+            header('Location: ' . Utils::formatLink($originallink));
             die();
         } else {
             //RETORNA A VIEW DA PÁGINA DE ERRO 404

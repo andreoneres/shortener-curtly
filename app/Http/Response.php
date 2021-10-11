@@ -20,7 +20,7 @@ class Response{
      *  Tipo de conteúdo que está sendo retornado 
      * @var string
      */
-    private $contentType = 'text/html';
+    private $contentType = 'application/json';
 
     /**
      * Conteúdo do Response
@@ -34,7 +34,7 @@ class Response{
      * @param mixed $content
      * @param string $contentType
      */
-    public function __construct($httpCode,$content,$contentType = 'text/html'){
+    public function __construct($httpCode,$content,$contentType = 'application/json'){
         $this->httpCode = $httpCode;
         $this->content = $content;
         $this->setContentType($contentType);
@@ -86,6 +86,14 @@ class Response{
             case 'text/html':
                 echo $this->content;
                 exit;
+            case 'application/json':
+                
+                if(gettype($this->content[0]) == 'string'){
+                    $result = $this->content;
+                }else {
+                    $result = $this->content;
+                }                
+                echo json_encode(array('Status' => $this->httpCode, 'Dados' => $result));
         }
     }
 

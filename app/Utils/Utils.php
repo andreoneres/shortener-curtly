@@ -7,7 +7,7 @@ class Utils {
      *  Método responsável por retornar uma string aleatória.
      *  @return string
      */
-    public static function generateRandomString($length = 5) {
+    public static function generateRandomString($length = 6) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-';
         $charactersLength = strlen($characters);
         $randomString = '';

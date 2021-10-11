@@ -16,7 +16,7 @@ class Login{
         $user = (new Database('USERS'))->select($fields, $where)[0];
         
         if(!$user){
-            throw new \Exception('Usuário inexistente!', 200);
+            throw new  \Exception('Usuário inexistente!', 200);
         } else if(!password_verify($post->password, $user['PASSWORD'])){
             throw new \Exception('Senha incorreta!', 200);
         }

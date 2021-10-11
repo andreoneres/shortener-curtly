@@ -6,7 +6,7 @@ use App\Controller as Controll;
 //ROTA HOME 
 $obRouter->get('/',[
     function() {
-        return new Response(200,Controll\Main::getMain());
+        return new Response(200,Controll\Main::getMain(), 'text/html');
     }
 ]);
 
@@ -14,21 +14,21 @@ $obRouter->get('/',[
 $obRouter->post('/',[
     function($request) {
         $post = $request->getPostVars();
-        return new Response(200,Controll\Main::getMain($post));
+        return new Response(200,Controll\Main::getMain($post), 'text/html');
     }
 ]);
 
 //ROTA HOME 
 $obRouter->get('/404',[
     function() {
-        return new Response(200,Controll\Erro404::get404());
+        return new Response(200,Controll\Erro404::get404(), 'text/html');
     }
 ]);
 
 // ROTA LOGOUT
 $obRouter->get('/logout',[
     function () {
-        return new Response(200,Controll\Logout::logout());
+        return new Response(200,Controll\Logout::logout(), 'text/html');
     }
 ]);
 
@@ -42,20 +42,20 @@ $obRouter->post('/login',[
 //ROTA HOME 
 $obRouter->get('/login',[
     function() {
-        return new Response(200,Controll\Login::getView());
+        return new Response(200,Controll\Login::getView(), 'text/html');
     }
 ]);
 
 //ROTA CADASTRO 
 $obRouter->post('/cadastro',[
     function($request) {
-        return new Response(200,Controll\User::createUser($request));
+        return new Response(200,Controll\User::createUser($request), 'text/html');
     }
 ]);
 
 //ROTA CADASTRO 
 $obRouter->get('/cadastro',[
     function() {
-        return new Response(200,Controll\Register::getView());
+        return new Response(200,Controll\Register::getView(), 'text/html');
     }
 ]);

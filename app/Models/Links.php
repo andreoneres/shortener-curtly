@@ -20,27 +20,9 @@ class Links {
         $title = $post->title ?? NULL;
         $originallink = $post->originallink;
         $customlink = $post->customlink;
-
-
-        if(strlen($customlink)) {
-            if (self::checkLinkExists($customlink) == 1) {
-                return ["error" => "Este link personalizado já existe!"];
-            } 
-            if (preg_match('/[^a-zA-Z0-9_-]+/', $customlink)) {
-                return ["error" => "Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
-            }
-            $customlink = str_replace(" ", "", trim($customlink));
-        } 
-
-        if (!preg_match('/[^a-zA-Z0-9_-]+/', $originallink)) {
-            return ["error" => "Link inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
-        }
-        
-        $originallink = Utils::formatLink($originallink);
-            // VERIFICA SE A URL A SER ENCURTADA É VÁLIDA
-            if (Utils::validateUrl($originallink) == 1) {
+            
                 //VERIFICA SE JÁ EXISTE UM LINK ENCURTADO PARA A URL DIGITADA, CASO NÃO JÁ CRIA UM PARA O LINK
-                if (self::checkLinkExists($originallink) == 1 && !strlen($customlink)) {
+                if (self::checkLinkExists($originallink) == 1 && !strlen($customlink) && is_null($iduser)) {
                     $shortenedlink = self::getShortenedLink($originallink);
                 } else {
                     $shortenedlink = Utils::generateRandomString();
@@ -61,10 +43,9 @@ class Links {
                     $error = "Ocorreu algum erro ao cadastrar. Contate algum administrador.";
                 
                 }
-            } else {
-                $error = "Link inválido. Verifique a URL digitada ou se o site está online.";
-            }
-        
+            
+                $log = Database::logs($iduser, 'Criou um link');
+
             $dados = [
                 'originallink' => $originallink,
                 'linkshortened' => $shortenedlink,
@@ -77,6 +58,53 @@ class Links {
         }
 
         return $dados;
+    }
+
+    /**
+     *  Método responsável por inserir o link personalizado no banco.
+     *  @return array
+     */
+    public static function updateLink($post) {
+
+        $iduser = $post->iduser;
+        $idlink = $post->idlink;
+        $title = $post->title;
+        $originallink = $post->originallink;
+        $customlink = $post->customlink;
+            
+                
+        $values = [
+            'TITLE' => $title, 
+            'CUSTOM' => $customlink, 
+            'EXPIRATION' => $post->expiration
+        ];
+
+        $where = "ID_LINK = {$idlink} AND ID_USER = '{$iduser}'";
+                    
+        $update = (new Database("LINKS"))->update($values, $where);
+                
+        if ($update !== 0) {
+            $message = "Link editado com sucesso!";
+        } else {
+            $error = "Ocorreu algum erro ao editar. Contate algum administrador.";
+                
+        }
+
+        $log = Database::logs($iduser, 'Alterou o link ' . $idlink);
+        
+            $dados = [
+                'originallink' => $originallink,
+                'message' => $message,
+                'error' => $error
+            ];
+
+        return $dados;
+    }
+
+    public static function deleteLink($idlink, $iduser) {
+        $where = "ID_LINK = {$idlink} AND ID_USER = {$iduser}";
+        $delete = (new Database("LINKS"))->delete($where);
+        $log = Database::logs($iduser, 'Deletou o link ' . $idlink);
     }
 
     /**
@@ -94,8 +122,19 @@ class Links {
      *  Método responsável por verificar se o link original recebido existe.
      *  @return int
      */
+    public static function checkLinkExistsByUser($post) {
+        $fields = '*';
+        $where = "ORIGINAL = '{$post->originallink}' AND ID_USER = '{$post->iduser}'";
+        $result = (new Database("LINKS"))->select($fields, $where);
+        return $result ? 1 : 0;
+    }
+
+    /**
+     *  Método responsável por verificar se o link original recebido existe.
+     *  @return int
+     */
     public static function getLinksByUser($iduser, $post) {
-        $links = (new Database("LINKS"))->select("*", "ID_USER = '{$iduser}'");
+        $links = (new Database("LINKS"))->select("*", "ID_USER = '{$iduser}'", null, 'CREATE_DATE DESC');
 
         $result = self::generatePagination($post, $pagination, $links);
         return $result;

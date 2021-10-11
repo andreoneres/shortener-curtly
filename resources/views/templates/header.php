@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="assets/css/admin.css">
     <script src="assets/js/app.js"></script>
     <script src="assets/js/admin.js"></script>
+    <script src="assets/js/sweetalert.js"></script>
     <title>Gerenciador - Curtly</title>
 </head>
 
@@ -32,7 +33,7 @@
                 </div>
             </div>
             <div class="topbar_arearight">
-                <button class="create-link" onclick="createLink(<?= $details['ID_LINK'] ?>)">CRIAR LINK</button>
+                <button class="create-link">CRIAR LINK</button>
                 <!-- ÍCONE DO USUÁRIO -->
                 <div class="icon_user">
                     <img src="assets/img/semfoto.jpg" alt="">
@@ -51,7 +52,7 @@
                             </a>
                         </li>
                         <li class="conf_items">
-                            <a onclick="teste()">
+                            <a id="logout" onclick="logout()">
                                 <img src="assets/svg/sair.svg" alt="">Sair
                             </a>
                         </li>

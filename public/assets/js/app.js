@@ -1,14 +1,5 @@
 const server = "http://www.encurtador.com";
 
-function teste() {
-  if (window.confirm('Você tem certeza?')) {
-    alert('Você foi deslogado!')
-    window.location.href = 'logout'
-  } else {
-    alert('Você desistiu de deslogar!')
-  }
-}
-
 // função que abre e fecha o menu de configuração
 window.addEventListener("load",function(event) {
   var menuconf = document.querySelector(".icon_conf");
@@ -24,39 +15,26 @@ window.addEventListener("load",function(event) {
 
 //CRIAR LINK
 window.addEventListener("load",function(event) {
-  var menu = document.querySelector(".create-link");
-  var menumob = document.querySelector(".menu-link");
-  var close = document.querySelector("#close");
-  // Abre o menu do site
-  menu.addEventListener("click", function () {
-      menumob.classList.add("open-menu");
-      menumob.classList.remove("close-menu");
-      document.querySelector(".title").innerHTML = "ENCURTAR LINK"
-      document.querySelector(".btn-submit").innerHTML = "ENCURTAR"
+  var menu = document.querySelectorAll(".create-link");
+  var menucreate = document.querySelector(".menu-create-link");
+  var menuedit = document.querySelector(".menu-edit-link");
+  var closecreate = document.querySelector("#close-create");
+  var closeedit = document.querySelector("#close-edit");
+  
+    menu.forEach(element => {
+        element.addEventListener("click", function () {
+            menucreate.classList.add("open-menu");
+            menucreate.classList.remove("close-menu");
+        });
+    });
+
+  closecreate.addEventListener("click", function () {
+      menucreate.classList.remove("open-menu");
+      menucreate.classList.add("close-menu");
   });
 
-  close.addEventListener("click", function (e) {
-      menumob.classList.remove("open-menu");
-      menumob.classList.add("close-menu");
-});
-},false);
-
-
-//EDITAR LINK
-window.addEventListener("load",function(event) {
-  var menu = document.querySelector("#edit-link");
-  var menumob = document.querySelector(".menu-link");
-  var close = document.querySelector("#close");
-  // Abre o menu do site
-  menu.addEventListener("click", function () {
-      menumob.classList.add("open-menu");
-      menumob.classList.remove("close-menu");
-      document.querySelector(".title").innerHTML = "EDITAR LINK"
-      document.querySelector(".btn-submit").innerHTML = "EDITAR"
-  });
-
-  close.addEventListener("click", function (e) {
-      menumob.classList.remove("open-menu");
-      menumob.classList.add("close-menu");
+  closeedit.addEventListener("click", function () {
+    menuedit.classList.remove("open-menu");
+    menuedit.classList.add("close-menu");
 });
 },false);

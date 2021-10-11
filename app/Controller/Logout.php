@@ -6,7 +6,7 @@ class Logout {
 
     public static function logout(){
         session_destroy();
-        header('Location: ' . URL);
+        header('Location: ' . URL . '/login');
         exit();
     }
 }
