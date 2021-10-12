@@ -15,10 +15,11 @@ class Redirect extends Page {
     public static function getLink($uri) {
         
         $url = explode("/", $uri);
-    
+        $link = $url[3];
         //VERIFICA SE O LINK EXISTE NO BANCO, CASO EXISTA, REDIRECIONA PARA O SITE
-        if(Links::checkLinkExists($url[3]) == 1) {
-            $originallink = Links::getOriginalLink($url[3]);
+        if(Links::checkLinkExists($link) == 1) {
+            $originallink = Links::getOriginalLink($link);
+            Links::insertClick($link);
             header('Location: ' . Utils::formatLink($originallink));
             die();
         } else {

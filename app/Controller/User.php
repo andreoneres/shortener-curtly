@@ -39,7 +39,8 @@ class User{
     * @param array
     * @return array
     */
-    public static function updateUser($post){
+    public static function updateUser($request){
+        $post = $request->getPostVars();
 
         if(strlen($post->cod) || strlen($post->nome) || strlen($post->login) || strlen($post->grupo) || strlen($post->ativo) || strlen($post->permissoes)) {
 

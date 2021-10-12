@@ -39,18 +39,18 @@
                     <img src="assets/img/semfoto.jpg" alt="">
                 </div>
                 <div class="username">
-                    <h3><?= $params['NAME']  ?></h3>
+                    <h3><?= USER['NAME'] ?></h3>
                 </div>
                 <div class="conf_area">
                     <!-- ÍCONE DE CONFIGURAÇÃO -->
                     <div class="icon_conf">
                     </div>
                     <ul class="conf_open">
-                        <li class="conf_items">
+                        <!-- <li class="conf_items">
                             <a href="#">
                                 <img src="assets/svg/perfil.svg" alt="">Perfil
                             </a>
-                        </li>
+                        </li> -->
                         <li class="conf_items">
                             <a id="logout" onclick="logout()">
                                 <img src="assets/svg/sair.svg" alt="">Sair

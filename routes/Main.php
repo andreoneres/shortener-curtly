@@ -5,16 +5,15 @@ use App\Controller as Controll;
 
 //ROTA HOME 
 $obRouter->get('/',[
-    function() {
-        return new Response(200,Controll\Main::getMain(), 'text/html');
+    function($request) {
+        return new Response(200,Controll\Main::getMain($request), 'text/html');
     }
 ]);
 
 //ROTA HOME 
 $obRouter->post('/',[
     function($request) {
-        $post = $request->getPostVars();
-        return new Response(200,Controll\Main::getMain($post), 'text/html');
+        return new Response(200,Controll\Main::getMain($request), 'text/html');
     }
 ]);
 

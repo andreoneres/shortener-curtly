@@ -15,8 +15,11 @@ class Home extends Page
      *  Método responsável por retornar o conteúdo (view) da home.
      *  @return string
      */
-    public static function getHome($post = null)
+    public static function getHome($request)
     {
+        $post = $request->getPostVars();
+        $params = $request->getQueryParams();
+        
         $user = Session::getUser();
         $links = Links::getLinksByUser($user['ID_USER'], $post);
        
@@ -26,8 +29,13 @@ class Home extends Page
                 $link['SHORTENED'] = $link['CUSTOM'];
             }
         }
-  
+
+        if(!empty($params)) {
+            $links = Links::searchLink($post, $params['search']);
+        }
+
+
         //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
-        return parent::getPageTemplate('manager/home', ['user' => $user, 'links' => $links, 'details' => $link, 'post' => $post]);
+        return parent::getPageTemplate('manager/home', ['user' => $user, 'links' => $links, 'details' => $link, 'post' => $post, 'params' => $params]);
     }
 }

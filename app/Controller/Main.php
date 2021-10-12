@@ -12,9 +12,12 @@ class Main extends Page {
      *  Método responsável por retornar o conteúdo (view) da home.
      *  @return string
      */
-    public static function getMain($post = null) { 
-        
-       $data = Links::validateLink($post);
+    public static function getMain($request) { 
+        $post = $request->getPostVars();
+
+        if(!is_null($post)) {
+            $data = Links::createLink($request);
+        }
        //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
         return parent::getPage('pages/main', $data);
     }

@@ -13,6 +13,7 @@ class Links extends Page {
      *  @return string
      */
     public static function validateLink($post) { 
+        $post->originallink = Utils::formatLink($post->originallink);
 
         if(isset($post->iduser)) {
             if(Link::checkLinkExistsByUser($post) == 1) {
@@ -35,17 +36,8 @@ class Links extends Page {
             return ["error" => "Link inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
         }
 
-        if ($post->originallink != "") {
-            if (strpos($post->originallink, '.')) {
-                $post->originallink = Utils::formatLink($post->originallink);
-                if (Utils::validateUrl($post->originallink) == 1) {
-                    $data = 1;
-                } else {
-                    $error = "Link inválido. Verifique a URL digitada ou se o site está online.";
-                }
-            } else {
-                $error = "Link inválido. Verifique a URL digitada ou se o site está online.";
-            }
+        if ($post->originallink != "" || strpos($post->originallink, '.') || Utils::validateUrl($post->originallink) == 1) {
+                $data = 1;
         } else {
             $error = "Link inválido. Verifique a URL digitada ou se o site está online.";
         }
@@ -59,7 +51,8 @@ class Links extends Page {
         return $data;
     }
 
-    public static function createLink($post) {
+    public static function createLink($request) {
+        $post = $request->getPostVars();
         $validate = self::validateLink($post);
 
         if($validate == 1) {
@@ -69,12 +62,10 @@ class Links extends Page {
         return $data;
     }
 
-    public static function updateLink($post) {
+    public static function updateLink($request) {
+        $post = $request->getPostVars();
 
         if(strlen($post->customlink)) {
-            if (Link::checkLinkExists($post->customlink) == 1) {
-                return ["error" => "Este link personalizado já existe!"];
-            } 
             if (preg_match('/[^a-zA-Z0-9_-]+/', $post->customlink)) {
                 return ["error" => "Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
             }
@@ -87,10 +78,26 @@ class Links extends Page {
         return $data;
     }
 
-    public static function deleteLink($post) {
+    public static function deleteLink($request) {
+        $post = $request->getPostVars();
+
         $iduser = $post->iduser;
         $idlink = $post->idlink;
         $data = Link::deleteLink($idlink, $iduser);
+
+        return $data;
+    }
+
+    public static function insertClick($link) {
+
+        $data = Link::insertClick($link);
+    }
+
+    public static function searchLink($request) {
+        $params = $request->getQueryParams();
+        $post = $request->getPostVars();
+
+        $data = Link::searchLink($post, $params['search']);
 
         return $data;
     }

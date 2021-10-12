@@ -8,8 +8,8 @@ $obRouter->get('/home',[
     'middlewares' =>[
         'authenticatedUser',
     ],
-    function() {
-        return new Response(200,Controll\Home::getHome(), 'text/html');
+    function($request) {
+        return new Response(200,Controll\Home::getHome($request), 'text/html');
     }
 ]);
 
@@ -19,8 +19,7 @@ $obRouter->post('/home',[
         'authenticatedUser',
     ],
     function($request) {
-        $post = $request->getPostVars();
-        return new Response(200,Controll\Home::getHome($post), 'text/html');
+        return new Response(200,Controll\Home::getHome($request), 'text/html');
     }
 ]);
 
@@ -30,8 +29,7 @@ $obRouter->post('/criarlink',[
         'authenticatedUser',
     ],
     function($request) {
-        $post = $request->getPostVars();
-        return new Response(200,Controll\Links::createLink($post), 'application/json');
+        return new Response(200,Controll\Links::createLink($request), 'application/json');
     }
 ]);
 
@@ -41,21 +39,17 @@ $obRouter->post('/editarlink',[
         'authenticatedUser',
     ],
     function($request) {
-        $post = $request->getPostVars();
-        return new Response(200,Controll\Links::updateLink($post), 'application/json');
+        return new Response(200,Controll\Links::updateLink($request), 'application/json');
     }
 ]);
 
 //ROTA HOME 
 $obRouter->post('/deletarlink',[
-    'middlewares' =>[
-        'authenticatedUser',
-    ],
     function($request) {
-        $post = $request->getPostVars();
-        return new Response(200,Controll\Links::deleteLink($post), 'application/json');
+        return new Response(200,Controll\Links::deleteLink($request), 'application/json');
     }
 ]);
+
 //ROTA HOME 
 $obRouter->get('/link/{id}',[
     'middlewares' =>[

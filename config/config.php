@@ -11,6 +11,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'Off');
 
 define('TEMPLATE_PATH', realpath(dirname(__FILE__,2). '/resources/views/templates'));
+define('USER', $_SESSION['USER']);
 
 use App\Utils\Environment;
 use App\Database\Database;
