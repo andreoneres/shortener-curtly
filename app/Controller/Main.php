@@ -19,6 +19,6 @@ class Main extends Page {
             $data = Links::createLink($request);
         }
        //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
-        return parent::getPage('pages/main', $data);
+        return parent::getPageTemplate('pages/main', $data);
     }
 }

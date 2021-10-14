@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Controller\Page;
-use App\Models\Links;
+use App\Controller\Links;
+use App\Models\Links as Link;
 use App\Database\Pagination;
 use App\Utils\Session;
 
@@ -31,11 +31,11 @@ class Home extends Page
         }
 
         if(!empty($params)) {
-            $links = Links::searchLink($post, $params['search']);
+            $links = Links::searchLink($request);
         }
 
 
         //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
-        return parent::getPageTemplate('manager/home', ['user' => $user, 'links' => $links, 'details' => $link, 'post' => $post, 'params' => $params]);
+        return parent::getPage('manager/home', ['user' => $user, 'links' => $links, 'details' => $link, 'post' => $post, 'params' => $params]);
     }
 }

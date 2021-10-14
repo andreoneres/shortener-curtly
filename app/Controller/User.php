@@ -27,8 +27,8 @@ class User{
 
         if(strlen($post->nome) || strlen($post->email)){
             
-            return (new Model\User($post))->createUser();
-            
+            $user = (new Model\User($post))->createUser();
+            $request->getRouter()->redirect('login');
         }else{
             throw new \Exception('Dados não preenchidos corretamente!', 200);
         }   

@@ -1,0 +1,84 @@
+/* RESET */
+*,
+p,
+div,
+nav,
+aside,
+section,
+h1,
+h2,
+h3,
+h4,
+h5,
+a,
+button {
+  padding: 0;
+  margin: 0;
+  font-weight: initial;
+  text-decoration: none;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "Inter", sans-serif;
+  outline: none;
+  font-size: 16px;
+}
+
+.background-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #4b5ec9;
+}
+
+.modal-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 77%;
+  width: 330px;
+  background-color: #f7f7f7;
+  padding: 30px;
+}
+
+.title > h1 {
+  margin-bottom: 10px;
+}
+
+.image > img {
+  border-radius: 60px;
+}
+
+#form-login #email,
+#form-login #password,
+#form-register #email,
+#form-register #email {
+  direction: ltr;
+  height: 44px;
+  font-size: 16px;
+}
+
+#form-login input, #form-register input {
+  padding: 14px;
+}
+
+.form-group {
+  margin: 12px 0px;
+}
+
+#form-login label, #form-register label {
+  color: #333336;
+}
+
+#btn-login, #btn-register {
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 11px;
+  cursor: pointer;
+  background-color: #4b5ec9;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 12px;
+}

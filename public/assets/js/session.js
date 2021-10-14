@@ -17,7 +17,17 @@ async function login() {
 
       if(typeof response.Dados.ID_USER !== "undefined") {
         sessionStorage.setItem('iduser', response.Dados.ID_USER);
-        window.location.href = "/home";
+        const willDelete = await swal({
+          title: "Sucesso!",
+          text: "Você logado com sucesso.",
+          icon: "sucess",
+          dangerMode: true,
+          buttons: ["Confirmar"],
+        });
+      
+        if (willDelete) {
+          window.location.href = "/home";
+        }
       } else {
           document.getElementById('error').innerHTML = response.Dados;
       }

@@ -160,6 +160,7 @@ class Links {
         $where = "ID_USER = {$id} AND TITLE LIKE '%{$search}%' OR ORIGINAL LIKE '%{$search}%' OR SHORTENED LIKE '%{$search}%' OR CUSTOM LIKE '%{$search}%'";
         $links = (new Database("LINKS"))->select('*', $where);
         $result = self::generatePagination($post, $pagination, $links);
+        var_dump($where);exit;
         return $result;
     }
 

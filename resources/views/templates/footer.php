@@ -1,8 +1,14 @@
-</main>
-<footer class="footer">
-    <div class="copyright">
-        <span>Copyryght <?= Date('Y') ?> © Curtly</span>
-    </div>
-</footer>
+<footer class="footer" id="footer">
+        <div class="copyright">Copyright 2021 © Curtly. Todos os direitos reservados.</div>
+    </footer>
+    <script>
+        function copiarTexto() {
+            var textoCopiado = document.getElementById("linkcopy");
+            textoCopiado.select();
+            document.execCommand("Copy");
+            document.querySelector("#btncopy").innerHTML = "URL Copiada!";
+        }
+    </script>
 </body>
+
 </html>

@@ -96,8 +96,12 @@ class Links extends Page {
     public static function searchLink($request) {
         $params = $request->getQueryParams();
         $post = $request->getPostVars();
-
-        $data = Link::searchLink($post, $params['search']);
+      
+        if(strlen($params['search'])) {
+            $data = Link::searchLink($post, $params['search']);
+        } else {
+            $data = ['error' => 'Nada foi informada para a pesquisa.'];
+        }
 
         return $data;
     }
@@ -105,5 +109,14 @@ class Links extends Page {
     public static function getLinkById($idlink) {
         $result = Link::getLinkById($idlink);
         return $result;
+    }
+
+    /**
+     *  Método responsável por retornar os links de um usuário
+     *  @return int
+     */
+    public static function getLinksByUser($iduser, $post) {
+    
+        return Link::getLinksByUser($iduser, $post);
     }
 }
