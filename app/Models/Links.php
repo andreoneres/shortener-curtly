@@ -208,7 +208,7 @@ class Links {
 
     /**
      *  Método responsável por verificar se o link original recebido existe.
-     *  @return int
+     *  @return array
      */
     public static function getLinksByUser($iduser, $post) {
         $links = (new Database("LINKS"))->select("*", "ID_USER = '{$iduser}'", null, 'CREATE_DATE DESC');
@@ -219,7 +219,7 @@ class Links {
 
     /**
      *  Método responsável por verificar se o link original recebido existe.
-     *  @return int
+     *  @return array
      */
     public static function getLinkById($idlink) {
         $result = (new Database("LINKS"))->select("*", "ID_LINK = '{$idlink}'");

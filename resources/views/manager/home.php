@@ -94,7 +94,7 @@
                             <?php if (!empty($params) && is_null($links['links'])) : ?>
                                 <span>Nenhum link encontrado.</span>
                             <?php else : ?>
-                                <button id="btn-cr-link" class="create-link">CRIAR O SEU PRIMEIRO LINK</button>
+                                <button id="btn-cr-link" class="create-link" onclick="openCreateLink()">CRIAR O SEU PRIMEIRO LINK</button>
                             <?php endif ?>
                         <?php endif ?>
                     </div>

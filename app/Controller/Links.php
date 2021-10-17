@@ -120,7 +120,7 @@ class Links extends Page {
 
     /**
      *  Método responsável por retornar os links de um usuário
-     *  @return int
+     *  @return array
      */
     public static function getLinksByUser($iduser, $post) {
     

@@ -213,6 +213,12 @@ window.addEventListener("load",function(event) {
   });
 },false);
 
+function openCreateLink() {
+  var menucreate = document.querySelector(".menu-create-link");
+  menucreate.classList.add("open-menu");
+  menucreate.classList.remove("close-menu");
+}
+
 //CRIAR LINK
 window.addEventListener("load",function(event) {
   var menu = document.querySelectorAll(".create-link");
