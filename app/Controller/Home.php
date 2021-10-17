@@ -21,9 +21,15 @@ class Home extends Page
         
         $user = Session::getUser();
         $links = Links::getLinksByUser($user['ID_USER'], $post);
+
+        foreach($links['links'] as $key => $value){
+            $links['links'][$key]['CREATE_DATE'] = date("d-m-Y H:i:s", strtotime($links['links'][$key]['CREATE_DATE']));
+        }
        
         if(!is_null($post)) {
             $link = Links::getLinkById($post->idlink);
+            $link['CREATE_DATE'] = date("d-m-Y H:i:s", strtotime($link['CREATE_DATE']));
+            
             if(is_null($link['SHORTENED'])) {
                 $link['SHORTENED'] = $link['CUSTOM'];
             }
