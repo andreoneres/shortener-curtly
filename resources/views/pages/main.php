@@ -9,7 +9,7 @@
                         Encurte e personalize o seu mundo digital como e quantas vezes quiser!</p>
                 </div>
                 <div class="form">
-                    <form action="/" method="post">
+                    <form id="form-create-link" action="javascript:createLink()" method="post">
                         <div class="form-single form-padd" id="form-1">
                             <div class="form-left">
                                 <div class="icon-form"></div>
@@ -23,7 +23,6 @@
                             <div class="icon-form-perso"></div>
                             <input type="text" name="customlink" id="customlink" size="40" placeholder="Personalizar (Opcional)" autocomplete="off">
                         </div>
-                        <button class="noselect" id="btn-2" type="submit">Encurtar</button>
                     </form>
                 </div>
             </div>
@@ -105,35 +104,3 @@
             </div>
         </div>
     </section>
-    <?php if (count($_POST) > 0) : ?>
-        <div class="modal-alert">
-            <div class="contaiiner">
-                <?php if (!empty($error)) : ?>
-                    <div class="topalert">
-                        <div class="close-alert">
-                        </div>
-                        <div class="icon-error">
-                        </div>
-                        <div class="desc-alert">
-                            <?= $error ?>
-                        </div>
-                    </div>
-                <?php endif ?>
-                <?php if (empty($error)) : ?>
-                    <div class="topalert">
-                        <div class="close-alert">
-                        </div>
-                        <div class="icon-success">
-                        </div>
-                        <div class="desc-alert">
-                            <?= $message ?>
-                        </div>
-                    </div>
-                    <div class="linkcopycontainer">
-                        <input type="text" name="linkcopy" id="linkcopy" size="20" value="<?= URL . "/$linkshortened" ?>" readonly>
-                    </div>
-                    <button id="btncopy" onclick="copiarTexto()">Copiar</button>
-                <?php endif ?>
-            </div>
-        </div>
-    <?php endif ?>

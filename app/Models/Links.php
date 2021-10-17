@@ -88,7 +88,12 @@ class Links {
         $custom = (new Database("LINKS"))->select("CUSTOM","CUSTOM = '{$customlink}' AND ID_LINK <> {$idlink}");
 
         if ($custom) {
-            throw new ValidationException('Esse link personalizado já existe!', 200);
+            throw new ValidationException('Esse link personalizado já existe!', 409);
+        }
+
+        $link = (new Database("LINKS"))->select('CUSTOM', "ID_LINK = {$idlink} AND ID_USER = {$iduser}")[0];
+        if(strlen($link['CUSTOM']) && !strlen($customlink)) {
+            throw new ValidationException('O campo de link personalizado não pode estar vazio pois já foi definido.', 409);
         }
                 
         $values = [
@@ -104,7 +109,7 @@ class Links {
         if ($update !== 0) {
             $message = "Link editado com sucesso!";
         } else {
-            throw new ValidationException('Ocorreu algum erro ao cadastrar. Contate algum administrador.', 200);
+            throw new ValidationException('Ocorreu algum erro ao cadastrar. Contate algum administrador.', 500);
                 
         }
 
@@ -276,7 +281,8 @@ class Links {
         return [
             'links' => $result,
             'pagination' => $pagination->getCurrentPage(),
-            'totalPages' => $pagination->getTotalPage()
+            'totalPages' => $pagination->getTotalPage(),
+            'totalResults' => $count
         ];
     }
 }

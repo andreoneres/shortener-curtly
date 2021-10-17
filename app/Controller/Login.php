@@ -35,7 +35,6 @@ class Login extends Page {
         } else {
             Message::setError($user);
         }
-
         return $user;
     }
 }

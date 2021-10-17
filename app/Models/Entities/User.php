@@ -3,6 +3,7 @@
 namespace App\Models\Entities;
 
 use App\Database\Database;
+use App\Utils\AppException;
 
 class User {
 
@@ -37,7 +38,7 @@ class User {
         $email = $user->select(
           'EMAIL',"EMAIL = '". $this->EMAIL . "'");
         if($email){
-          throw new ValidationException('E-mail já existe!', 409);
+          throw new AppException('E-mail já existe!', 409);
         }
 
         $result = $user->insert([

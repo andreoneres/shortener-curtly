@@ -11,6 +11,9 @@ async function searchLink() {
   var doc = parser.parseFromString(response, "text/html");
   var content = doc.querySelector(".links-created").innerHTML;
   document.querySelector(".links-created").innerHTML = content;
+
+  var content = doc.querySelector("#total-results").innerHTML;
+  document.querySelector("#total-results").innerHTML = content;
   updateDetails;
 }
 
@@ -80,24 +83,29 @@ async function createLink() {
 
   let response = await sendRequest("criarlink", "POST", data);
 
-  response = await response.text();
+  response = await response.json();
 
   console.log(response);
+  if(response.Status !== 200) {
+    swal("Oops!", `${response.Dados}`, "warning");
+    document.getElementById("create-link-btn").disabled = false;
+  } else {
+    var menucreate = document.querySelector(".menu-create-link");
+    menucreate.classList.remove("open-menu");
+    menucreate.classList.add("close-menu");
+    updateLinks();
 
-  var menucreate = document.querySelector(".menu-create-link");
-  menucreate.classList.remove("open-menu");
-  menucreate.classList.add("close-menu");
-  updateLinks();
+    swal("Sucesso!", "Link criado com sucesso.", "success");
+    document.getElementById("create-link-btn").disabled = false;
+    form.reset();
+  }
 
-  swal("Sucesso!", "Link criado com sucesso.", "success");
-  document.getElementById("create-link-btn").disabled = false;
-
-  form.reset();
 }
 
 async function editLink() {
   var form = document.getElementById("form-link-edit");
   var id = document.querySelector(".links-info").id;
+  var menuedit = document.querySelector(".menu-edit-link");
   document.getElementById("edit-link-btn").disabled = true;
   let data = {
     title: form.titleedit.value,
@@ -110,10 +118,9 @@ async function editLink() {
 
   response = await response.json();
   console.log(response);
-  var menuedit = document.querySelector(".menu-edit-link");
 
-  if(response.Dados.error != null) {
-    swal("Oops!", `${response.Dados.error}`, "warning");
+  if(response.Status !== 200) {
+    swal("Oops!", `${response.Dados}`, "warning");
     document.getElementById("edit-link-btn").disabled = false;
   } else {
     menuedit.classList.remove("open-menu");
@@ -125,9 +132,6 @@ async function editLink() {
     updateLinks();
     viewDetailsLink(id);
   }
-
-
-  // console.log(response)
 }
 
 async function deleteLink(idlink) {
@@ -195,3 +199,42 @@ function logout() {
   sessionStorage.clear();
   document.location.href = "/logout";
 }
+
+// função que abre e fecha o menu de configuração
+window.addEventListener("load",function(event) {
+  var menuconf = document.querySelector(".icon_conf");
+  var confopen = document.querySelector(".conf_open");
+  menuconf.addEventListener("click", function () {
+      if (confopen.style.display == "block") {
+          confopen.style.display = "none"; 
+      } else {
+          confopen.style.display = "block"; 
+      }
+  });
+},false);
+
+//CRIAR LINK
+window.addEventListener("load",function(event) {
+  var menu = document.querySelectorAll(".create-link");
+  var menucreate = document.querySelector(".menu-create-link");
+  var menuedit = document.querySelector(".menu-edit-link");
+  var closecreate = document.querySelector("#close-create");
+  var closeedit = document.querySelector("#close-edit");
+  
+    menu.forEach(element => {
+        element.addEventListener("click", function () {
+            menucreate.classList.add("open-menu");
+            menucreate.classList.remove("close-menu");
+        });
+    });
+
+  closecreate.addEventListener("click", function () {
+      menucreate.classList.remove("open-menu");
+      menucreate.classList.add("close-menu");
+  });
+
+  closeedit.addEventListener("click", function () {
+    menuedit.classList.remove("open-menu");
+    menuedit.classList.add("close-menu");
+});
+},false);

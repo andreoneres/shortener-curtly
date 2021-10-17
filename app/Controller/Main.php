@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller\Page;
 use App\Controller\Links;
 use App\Utils\Utils;
+use App\Utils\AppException;
 
 class Main extends Page {
 
@@ -13,12 +14,8 @@ class Main extends Page {
      *  @return string
      */
     public static function getMain($request) { 
-        $post = $request->getPostVars();
 
-        if(!empty($post)) {
-            $data = Links::createLink($request);
-        }
        //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
-        return parent::getPageTemplate('pages/main', $data);
+        return parent::getPageTemplate('pages/main');
     }
 }

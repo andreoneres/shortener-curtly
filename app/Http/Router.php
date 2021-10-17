@@ -176,7 +176,7 @@ class Router{
                     return $methods[$httpMethod];
                 }
                 //Método bao permitido para essa rota
-                throw new Exception('Método não permitido', 405);  
+                throw new \Exception('Método não permitido', 405);  
             }        
         }
         //URL INEXISTENTE
@@ -195,7 +195,7 @@ class Router{
             
             //VERIFICA O CONTROLADOR
             if(!isset($route['controller'])){
-                throw new Exception('A URL não pode ser processada', 500);
+                throw new \Exception('A URL não pode ser processada', 500);
             }
             //ARGUMENTOS DA FUNÇÃO
             $args = [];
@@ -210,7 +210,7 @@ class Router{
             return (new Middleware($route['middlewares'],$route['controller'],$args))
                     ->next($this->request);            
 
-        }catch(Exception $e){
+        }catch(\Exception $e){
             return new Response($e->getCode(), $e->getMessage());
         }
     }

@@ -33,22 +33,26 @@ async function register() {
         confirmpassword: form.confirmpassword.value
     }
 
-    let response = await fetch(`${server}/cadastro`, {
+    var response = await fetch(`${server}/cadastro`, {
         method: "POST",
         body: JSON.stringify(data),
       });
 
     response = await response.json();
-
     console.log(response);
-    if(typeof response.Dados.ID_USER !== "undefined") {
-        sessionStorage.setItem('iduser', response.Dados.ID_USER);
-        let response = await fetch(`${server}/login`, {
+
+    if(response.Dados == 'Dados registrados com sucesso!') {
+        let login = await fetch(`${server}/login`, {
             method: "POST",
             body: JSON.stringify(data),
         });
-          window.location.href = "/home";
-      } else {
-          swal("Oops!", `${response.Dados}`, "warning");
-      }
+        login = await login.json()
+        sessionStorage.setItem('iduser', login.Dados.ID_USER);
+        swal("Sucesso!", "Sua conta foi criada com sucesso! Você será logado em alguns segundos...", "success");
+        setInterval(() => {
+            window.location.href = "/home";
+        }, 4000);
+    } else {
+        swal("Oops!", `${response.Dados}`, "warning");
+    }
 }

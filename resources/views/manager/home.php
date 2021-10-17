@@ -68,7 +68,7 @@
                         <button type="submit" id="btn-search"><i></i></button>
                     </form>
                 </div>
-                <span>4 resultados</span>
+                <span id="total-results"><?= $links['totalResults'] ?> resultado(s)</span>
             </div>
             <div class="links">
                 <div class="links-created">
@@ -141,7 +141,6 @@
                         <div class="links-buttons">
                             <button id="edit-link" onclick="getDataLink(<?= $details['ID_LINK'] ?>)">Editar</button>
                             <button id="copy-link" onclick="copyLink()">Copiar</button>
-                            <button id="qrcode-link">QR Code</button>
                             <button id="delete-link" onclick="deleteLink(<?= $details['ID_LINK'] ?>)">Deletar</button>
                         </div>
                     <?php else : ?>

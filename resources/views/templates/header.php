@@ -16,6 +16,7 @@ $server = "http://localhost"
     <link rel="stylesheet" href="assets/css/404.css">
     <script src="assets/js/app.js"></script>
     <script src="assets/js/events.js"></script>
+    <script src="assets/js/sweetalert.js"></script>
     <title>Curtly - Encurtador de URLs</title>
 </head>
 

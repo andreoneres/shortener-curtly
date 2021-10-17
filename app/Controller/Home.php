@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\Links;
-use App\Utils\ValidationException as Error;
+use App\Utils\AppException;
 use App\Utils\Session;
 
 
@@ -29,13 +29,13 @@ class Home extends Page
             }
         }
 
-        if(!empty($params)) {
-            $links = Links::searchLink($request);
+        try {
+            if(!empty($params)) {
+                $links = Links::searchLink($request);
+            }
+        } catch (AppException $e) {
+            $links = null;
         }
-
-        // $errors = new Error('teste');
-        // var_dump($errors);exit;
-
 
         //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
         return parent::getPage('manager/home', ['user' => $user, 'links' => $links, 'details' => $link, 'post' => $post, 'params' => $params]);

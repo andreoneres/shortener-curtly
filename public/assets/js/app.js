@@ -1,40 +1,54 @@
 const server = "http://www.encurtador.com";
 
-// função que abre e fecha o menu de configuração
-window.addEventListener("load",function(event) {
-  var menuconf = document.querySelector(".icon_conf");
-  var confopen = document.querySelector(".conf_open");
-  menuconf.addEventListener("click", function () {
-      if (confopen.style.display == "block") {
-          confopen.style.display = "none"; 
-      } else {
-          confopen.style.display = "block"; 
-      }
-  });
-},false);
+async function createLink() {
+  var form = document.getElementById("form-create-link");
+  document.getElementById("btn-1").disabled = true;
+  let data = {
+    originallink: form.originallink.value,
+    customlink: form.customlink.value,
+  };
 
-//CRIAR LINK
-window.addEventListener("load",function(event) {
-  var menu = document.querySelectorAll(".create-link");
-  var menucreate = document.querySelector(".menu-create-link");
-  var menuedit = document.querySelector(".menu-edit-link");
-  var closecreate = document.querySelector("#close-create");
-  var closeedit = document.querySelector("#close-edit");
-  
-    menu.forEach(element => {
-        element.addEventListener("click", function () {
-            menucreate.classList.add("open-menu");
-            menucreate.classList.remove("close-menu");
-        });
+  let response = await fetch(`${server}/criarlink`, {
+    method: "POST",
+    body: new URLSearchParams(data),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  });
+
+  response = await response.json();
+
+  console.log(response);
+  if (typeof response.Dados.linkshortened !== "undefined") {
+    const willCopy = await swal({
+      title: "Bom trabalho!",
+      text: "Link encurtado com sucesso.",
+      icon: "success",
+      content: {
+        element: "input",
+        attributes: {
+          type: "text",
+          value: `${server}/${response.Dados.linkshortened}`,
+          disabled: true
+        },
+      },
+      button: "COPIAR"
+    })
+    .then((value) => {
+       if(value !== null) {
+           copyText()
+       }
     });
+  } else {
+    swal("Oops!", `${response.Dados}`, "warning");
+  }
 
-  closecreate.addEventListener("click", function () {
-      menucreate.classList.remove("open-menu");
-      menucreate.classList.add("close-menu");
-  });
+  document.getElementById("btn-1").disabled = false;
+}
 
-  closeedit.addEventListener("click", function () {
-    menuedit.classList.remove("open-menu");
-    menuedit.classList.add("close-menu");
-});
-},false);
+function copyText() {
+    var range = document.createRange();
+    range.selectNode(document.querySelector(".swal-content__input"));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();
+}

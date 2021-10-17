@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Database\Database;
+use App\Utils\AppException;
 
 class Login{
 
@@ -16,9 +17,9 @@ class Login{
         $user = (new Database('USERS'))->select($fields, $where)[0];
         
         if(!$user){
-            throw new  ValidationException('E-mail inexistente!', 200);
+            throw new AppException('E-mail inexistente!', 200);
         } else if(!password_verify($post->password, $user['PASSWORD'])){
-            throw new ValidationException('Senha incorreta!', 200);
+            throw new AppException('Senha incorreta!', 200);
         }
 
         self::logs($user);

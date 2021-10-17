@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Models\Entities as Model;
+use App\Controller\Login;
+use App\Utils\AppException;
 
 class User{
 
@@ -16,21 +18,25 @@ class User{
         $post = $request->getPostVars();
     
         if(strlen($post->password) && strlen($post->confirmpassword)){
-            if($post->confirmpassword == $post->password){
+            if(strlen($post->password) < 6) {
+                throw new AppException('Senha muito curta! Ela deve ser composta por pelo menos 6 caracteres.', 200);
+            } else if($post->confirmpassword == $post->password){
                 $post->password = password_hash($post->password, PASSWORD_DEFAULT);
-            }else{
-                throw new ValidationException('A senha definida não é a mesma!', 200);
+            }else {
+                throw new AppException('A senha definida não é a mesma!', 200);
             }
         } else {
-            throw new ValidationException('Dados não preenchidos corretamente!', 200);
+            throw new AppException('Dados não preenchidos corretamente!', 200);
         }
+
 
         if(strlen($post->nome) || strlen($post->email)){
             
             $user = (new Model\User($post))->createUser();
-            $request->getRouter()->redirect('/home');
+            
+            return $user;
         }else{
-            throw new ValidationException('Dados não preenchidos corretamente!', 200);
+            throw new AppException('Dados não preenchidos corretamente!', 200);
         }   
     }
 
@@ -49,7 +55,7 @@ class User{
             return (new Model\User($post))->updateUser($cod);
 
         }else{
-            throw new ValidationException('Dados não preenchidos corretamente!', 200);
+            throw new AppException('Dados não preenchidos corretamente!', 200);
         } 
         
     

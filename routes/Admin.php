@@ -25,9 +25,6 @@ $obRouter->post('/home',[
 
 //ROTA HOME 
 $obRouter->post('/criarlink',[
-    'middlewares' =>[
-        'authenticatedUser',
-    ],
     function($request) {
         return new Response(200,Controll\Links::createLink($request), 'application/json');
     }

@@ -459,7 +459,7 @@ a {
 }
 /* MODAL ALERT */
 .modal-alert {
-    display: flex;
+    display: none;
     opacity: 1;
     justify-content: center;
     align-items: center;
@@ -682,6 +682,10 @@ footer {
 .contrast h1, .contrast h2, .contrast h3, .contrast h4, .contrast h5, .contrast h6, .contrast p, .contrast label, 
 .contrast strong, .contrast em, .contrast cite, .contrast q, .contrast i, .contrast b, .contrast u, .contrast span {
     color: white !important;
+}
+
+.contrast #btn-login {
+    background-color: black;
 }
 
 .contrast a{

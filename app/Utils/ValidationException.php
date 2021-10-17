@@ -7,7 +7,7 @@ class ValidationException extends AppException {
 
     private $error = "";
 
-    public function __construct($error = "Erro de validação",
+    public function __construct($error = "",
         $code = 0, $previous = null) {
         parent::__construct($error, $code, $previous);
         $this->error = $error;

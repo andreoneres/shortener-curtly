@@ -82,7 +82,7 @@ class Queue
     $middleware = array_shift($this->middlewares);
     
     if (!isset(self::$map[$middleware])) {
-      throw new ValidationException('Problemas ao processar o middleware', 500);
+      throw new \Exception('Problemas ao processar o middleware', 500);
     }
 
     //NEXT

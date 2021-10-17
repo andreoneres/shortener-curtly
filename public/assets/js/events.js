@@ -31,17 +31,4 @@ window.addEventListener("load",function(event) {
     });
 },false);
 
-window.addEventListener("load",function(event) {
-    var closealert = document.querySelector(".close-alert");
-    var modalalert = document.querySelector(".modal-alert");
-
-    // Fecha o modal de alerta
-    closealert.addEventListener("click", function () {
-        modalalert.classList.add("closemodal");
-        setTimeout(
-            function () {
-                modalalert.style.display = "none";   
-            }, 500); 
-    });
-},false);
 
