@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Models\Links as Link;
 use App\Controller\Page;
 use App\Utils\Utils;
+use App\Utils\ValidationException;
 
 class Links extends Page {
 
@@ -17,29 +18,29 @@ class Links extends Page {
 
         if(isset($post->iduser)) {
             if(Link::checkLinkExistsByUser($post) == 1) {
-                return ["error" => "Este link já se encontra encurtado em sua conta!"];
+                throw new ValidationException('Este link já se encontra encurtado em sua conta!', 409);
             }
         }
 
         if(strlen($post->customlink)) {
             if (Link::checkLinkExists($post->customlink) == 1) {
-                return ["error" => "Este link personalizado já existe!"];
+                throw new ValidationException('Este link personalizado já existe!', 409);
             } 
             if (preg_match('/[^a-zA-Z0-9_-]+/', $post->customlink)) {
-                return ["error" => "Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
+                throw new ValidationException('Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos.', 406);
             }
 
             $post->customlink = str_replace(" ", "", trim($post->customlink));
         } 
 
         if (!preg_match('/[^a-zA-Z0-9_-]+/', $post->originallink)) {
-            return ["error" => "Link inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
+            throw new ValidationException('Link inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos.', 406);
         }
 
         if ($post->originallink != "" || strpos($post->originallink, '.') || Utils::validateUrl($post->originallink) == 1) {
                 $data = 1;
         } else {
-            $error = "Link inválido. Verifique a URL digitada ou se o site está online.";
+            throw new ValidationException('Link inválido. Verifique a URL digitada ou se o site está online.', 406);
         }
 
         if(isset($error)) {
@@ -57,6 +58,8 @@ class Links extends Page {
 
         if($validate == 1) {
             $data = Link::createLink($post);
+        } else {
+            return $validate;
         }
 
         return $data;
@@ -67,10 +70,11 @@ class Links extends Page {
 
         if(strlen($post->customlink)) {
             if (preg_match('/[^a-zA-Z0-9_-]+/', $post->customlink)) {
-                return ["error" => "Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos."];
+                throw new ValidationException('Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos.', 406);
             }
 
             $post->customlink = str_replace(" ", "", trim($post->customlink));
+
         } 
         
         $data = Link::updateLink($post);
@@ -100,7 +104,7 @@ class Links extends Page {
         if(strlen($params['search'])) {
             $data = Link::searchLink($post, $params['search']);
         } else {
-            $data = ['error' => 'Nada foi informada para a pesquisa.'];
+            throw new ValidationException('Nada foi encontrado para a pesquisa.', 404);
         }
 
         return $data;

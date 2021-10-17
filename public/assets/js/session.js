@@ -17,18 +17,38 @@ async function login() {
 
       if(typeof response.Dados.ID_USER !== "undefined") {
         sessionStorage.setItem('iduser', response.Dados.ID_USER);
-        const willDelete = await swal({
-          title: "Sucesso!",
-          text: "Você logado com sucesso.",
-          icon: "sucess",
-          dangerMode: true,
-          buttons: ["Confirmar"],
-        });
-      
-        if (willDelete) {
           window.location.href = "/home";
-        }
       } else {
-          document.getElementById('error').innerHTML = response.Dados;
+          swal("Oops!", `${response.Dados}`, "warning");
+      }
+}
+
+async function register() {
+    var form = document.getElementById('form-register');
+
+    let data = {
+        name: form.name.value,
+        email: form.email.value,
+        password: form.password.value,
+        confirmpassword: form.confirmpassword.value
+    }
+
+    let response = await fetch(`${server}/cadastro`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+    response = await response.json();
+
+    console.log(response);
+    if(typeof response.Dados.ID_USER !== "undefined") {
+        sessionStorage.setItem('iduser', response.Dados.ID_USER);
+        let response = await fetch(`${server}/login`, {
+            method: "POST",
+            body: JSON.stringify(data),
+        });
+          window.location.href = "/home";
+      } else {
+          swal("Oops!", `${response.Dados}`, "warning");
       }
 }

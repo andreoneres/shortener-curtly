@@ -37,7 +37,7 @@ class User {
         $email = $user->select(
           'EMAIL',"EMAIL = '". $this->EMAIL . "'");
         if($email){
-          throw new \Exception('E-mail já existe!', 200);
+          throw new ValidationException('E-mail já existe!', 409);
         }
 
         $result = $user->insert([

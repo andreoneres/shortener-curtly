@@ -7,8 +7,8 @@ date_default_timezone_set('America/Sao_Paulo');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");  
 
-error_reporting(E_ALL);
-ini_set('display_errors', 'Off');
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'Off');
 
 define('TEMPLATE_PATH', realpath(dirname(__FILE__,2). '/resources/views/templates'));
 define('USER', $_SESSION['USER']);

@@ -15,7 +15,7 @@ class Main extends Page {
     public static function getMain($request) { 
         $post = $request->getPostVars();
 
-        if(!is_null($post)) {
+        if(!empty($post)) {
             $data = Links::createLink($request);
         }
        //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL

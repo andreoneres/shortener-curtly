@@ -19,18 +19,18 @@ class User{
             if($post->confirmpassword == $post->password){
                 $post->password = password_hash($post->password, PASSWORD_DEFAULT);
             }else{
-                throw new \Exception('A senha definida não é a mesma!', 200);
+                throw new ValidationException('A senha definida não é a mesma!', 200);
             }
         } else {
-            throw new \Exception('Dados não preenchidos corretamente!', 200);
+            throw new ValidationException('Dados não preenchidos corretamente!', 200);
         }
 
         if(strlen($post->nome) || strlen($post->email)){
             
             $user = (new Model\User($post))->createUser();
-            $request->getRouter()->redirect('login');
+            $request->getRouter()->redirect('/home');
         }else{
-            throw new \Exception('Dados não preenchidos corretamente!', 200);
+            throw new ValidationException('Dados não preenchidos corretamente!', 200);
         }   
     }
 
@@ -49,7 +49,7 @@ class User{
             return (new Model\User($post))->updateUser($cod);
 
         }else{
-            throw new \Exception('Dados não preenchidos corretamente!', 200);
+            throw new ValidationException('Dados não preenchidos corretamente!', 200);
         } 
         
     

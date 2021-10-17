@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/imgs/favicon.ico">
     <link rel="stylesheet" href="assets/css/login.css">
     <script src="assets/js/session.js"></script>
     <script src="assets/js/sweetalert.js"></script>
@@ -20,6 +21,9 @@
                 </div>
                 <div class="image">
                     <img src="assets/img/avatar.png" alt="" width="96" height="96">
+                </div>
+                <div class="error-container">
+                    <h2 id="error" style="color: red"></h2>
                 </div>
                 <form id="form-login" action="javascript:login()" method="post">
                     <div class="form-group">

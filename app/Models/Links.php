@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Database\Database;
 use App\Utils\Utils;
 use App\Database\Pagination;
-use App\Utils\Session;
+use App\Utils\ValidationException;
 
 class Links {
 
@@ -53,8 +53,7 @@ class Links {
                     if ($insert == 'Dados registrados com sucesso!') {
                         $message = "Link encurtado com sucesso!";
                     } else {
-                        $error = "Ocorreu algum erro ao cadastrar. Contate algum administrador.";
-                    
+                        throw new ValidationException('Ocorreu algum erro ao cadastrar. Contate algum administrador.', 200);
                     }
                 }
             
@@ -64,7 +63,6 @@ class Links {
                 'originallink' => $originallink,
                 'linkshortened' => $shortenedlink,
                 'message' => $message,
-                'error' => $error
             ];
 
         if(strlen($customlink)) {
@@ -86,14 +84,11 @@ class Links {
         $originallink = $post->originallink;
         $customlink = $post->customlink;
 
-        //VERIFICA SE CPF JÁ EXISTE NO BANCO
-        $custom = (new Database("LINKS"))->select(
-            'CUSTOM',
-            "CUSTOM = {$idlink} AND ID_USER <> " . $iduser
-        );
+        //VERIFICA SE LINK CUSTOM JÁ EXISTE NO BANCO
+        $custom = (new Database("LINKS"))->select("CUSTOM","CUSTOM = '{$customlink}' AND ID_LINK <> {$idlink}");
 
         if ($custom) {
-            return ["error" => "Esse link personalizado já existe!"];
+            throw new ValidationException('Esse link personalizado já existe!', 200);
         }
                 
         $values = [
@@ -109,7 +104,7 @@ class Links {
         if ($update !== 0) {
             $message = "Link editado com sucesso!";
         } else {
-            $error = "Ocorreu algum erro ao editar. Contate algum administrador.";
+            throw new ValidationException('Ocorreu algum erro ao cadastrar. Contate algum administrador.', 200);
                 
         }
 
@@ -117,8 +112,7 @@ class Links {
         
             $dados = [
                 'originallink' => $originallink,
-                'message' => $message,
-                'error' => $error
+                'message' => $message
             ];
 
         return $dados;
@@ -157,10 +151,9 @@ class Links {
 
     public static function searchLink($post, $search) {
         $id = USER['ID_USER'];
-        $where = "ID_USER = {$id} AND TITLE LIKE '%{$search}%' OR ORIGINAL LIKE '%{$search}%' OR SHORTENED LIKE '%{$search}%' OR CUSTOM LIKE '%{$search}%'";
+        $where = "(ID_USER = {$id}) AND (TITLE LIKE '%{$search}%' OR ORIGINAL LIKE '%{$search}%' OR SHORTENED LIKE '%{$search}%' OR CUSTOM LIKE '%{$search}%')";
         $links = (new Database("LINKS"))->select('*', $where);
         $result = self::generatePagination($post, $pagination, $links);
-        var_dump($where);exit;
         return $result;
     }
 

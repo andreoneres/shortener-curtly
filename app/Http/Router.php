@@ -3,7 +3,7 @@
 namespace App\Http;
 
 use \Closure;
-use \Exception;
+use ValidationException;
 use \ReflectionFunction;
 use \App\Http\Middleware\Queue as Middleware;
 use App\Controller;

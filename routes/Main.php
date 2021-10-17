@@ -48,7 +48,7 @@ $obRouter->get('/login',[
 //ROTA CADASTRO 
 $obRouter->post('/cadastro',[
     function($request) {
-        return new Response(200,Controll\User::createUser($request), 'text/html');
+        return new Response(200,Controll\User::createUser($request), 'application/json');
     }
 ]);
 

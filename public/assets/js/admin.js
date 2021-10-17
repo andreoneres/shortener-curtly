@@ -108,17 +108,24 @@ async function editLink() {
 
   let response = await sendRequest("editarlink", "POST", data);
 
-  response = await response.text();
+  response = await response.json();
   console.log(response);
   var menuedit = document.querySelector(".menu-edit-link");
-  menuedit.classList.remove("open-menu");
-  menuedit.classList.add("close-menu");
 
-  swal("Sucesso!", "Link editado com sucesso.", "success");
-  document.getElementById("edit-link-btn").disabled = false;
+  if(response.Dados.error != null) {
+    swal("Oops!", `${response.Dados.error}`, "warning");
+    document.getElementById("edit-link-btn").disabled = false;
+  } else {
+    menuedit.classList.remove("open-menu");
+    menuedit.classList.add("close-menu");
+  
+    swal("Sucesso!", "Link editado com sucesso.", "success");
+    document.getElementById("edit-link-btn").disabled = false;
+  
+    updateLinks();
+    viewDetailsLink(id);
+  }
 
-  updateLinks();
-  viewDetailsLink(id);
 
   // console.log(response)
 }
@@ -187,5 +194,4 @@ async function sendRequest(url, method, data = null) {
 function logout() {
   sessionStorage.clear();
   document.location.href = "/logout";
-  swal("Sucesso!", "Você foi deslogado com sucesso.", "success");
 }

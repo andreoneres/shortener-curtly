@@ -3,8 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\Links;
-use App\Models\Links as Link;
-use App\Database\Pagination;
+use App\Utils\ValidationException as Error;
 use App\Utils\Session;
 
 
@@ -33,6 +32,9 @@ class Home extends Page
         if(!empty($params)) {
             $links = Links::searchLink($request);
         }
+
+        // $errors = new Error('teste');
+        // var_dump($errors);exit;
 
 
         //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
