@@ -17,7 +17,6 @@ async function searchLink() {
   updateDetails;
 }
 
-//
 async function updateLinks() {
   let response = await sendRequest("home", "GET");
 
@@ -25,8 +24,12 @@ async function updateLinks() {
 
   var parser = new DOMParser();
   var doc = parser.parseFromString(response, "text/html");
+  
   var content = doc.querySelector(".links-created").innerHTML;
   document.querySelector(".links-created").innerHTML = content;
+
+  var content = doc.querySelector("#total-results").innerHTML;
+  document.querySelector("#total-results").innerHTML = content;
 }
 
 async function updateDetails(idlink) {

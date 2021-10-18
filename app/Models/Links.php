@@ -82,7 +82,7 @@ class Links {
         $idlink = $post->idlink;
         $title = $post->title;
         $originallink = $post->originallink;
-        $customlink = $post->customlink;
+        $customlink = strlen($post->customlink) ? $post->customlink : NULL;
 
         //VERIFICA SE LINK CUSTOM JÁ EXISTE NO BANCO
         $custom = (new Database("LINKS"))->select("CUSTOM","CUSTOM = '{$customlink}' AND ID_LINK <> {$idlink}");
@@ -91,8 +91,10 @@ class Links {
             throw new ValidationException('Esse link personalizado já existe!', 409);
         }
 
-        $link = (new Database("LINKS"))->select('CUSTOM', "ID_LINK = {$idlink} AND ID_USER = {$iduser}")[0];
-        if(strlen($link['CUSTOM']) && !strlen($customlink)) {
+        // $link = (new Database("LINKS"))->select('CUSTOM', "ID_LINK = {$idlink} AND ID_USER = {$iduser}")[0];
+        $link = self::getLinkById($idlink);
+        
+        if(!is_null($link['CUSTOM']) && is_null($customlink)) {
             throw new ValidationException('O campo de link personalizado não pode estar vazio pois já foi definido.', 409);
         }
                 

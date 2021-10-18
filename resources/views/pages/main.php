@@ -23,6 +23,7 @@
                             <div class="icon-form-perso"></div>
                             <input type="text" name="customlink" id="customlink" size="40" placeholder="Personalizar (Opcional)" autocomplete="off">
                         </div>
+                        <button id="btn-2" type="submit">Encurtar</button>
                     </form>
                 </div>
             </div>

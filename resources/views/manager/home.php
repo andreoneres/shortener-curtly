@@ -91,7 +91,7 @@
                                 </div>
                             <?php endforeach ?>
                         <?php else : ?>
-                            <?php if (!empty($params) && is_null($links['links'])) : ?>
+                            <?php if (!empty($params['search']) && is_null($links['links'])) : ?>
                                 <span>Nenhum link encontrado.</span>
                             <?php else : ?>
                                 <button id="btn-cr-link" class="create-link" onclick="openCreateLink()">CRIAR O SEU PRIMEIRO LINK</button>

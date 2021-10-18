@@ -35,12 +35,12 @@ class Home extends Page
             }
         }
 
-        try {
-            if(!empty($params)) {
+        if(!empty($params['search'])) {
+            try {
                 $links = Links::searchLink($request);
+            } catch (AppException $e) {
+                $links = null;
             }
-        } catch (AppException $e) {
-            $links = null;
         }
 
         //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
