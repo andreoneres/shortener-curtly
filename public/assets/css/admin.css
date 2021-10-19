@@ -432,6 +432,7 @@ body {
 .custom-details-link > h3,
 .clicks-details-link > h3 {
   margin: 12px 0px;
+  text-align: center;
 }
 
 .qrcod-details > img {

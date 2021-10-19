@@ -13,10 +13,8 @@ class Login extends Page {
      *  @return string
      */
     public static function getView(){ 
-                   
-        $message = Message::getMessage();
-        
-        return parent::getPage('pages/login', $message);
+
+        return parent::getPage('pages/login');
      
     }
 

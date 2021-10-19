@@ -163,7 +163,6 @@ class Links extends Page {
      *  @return array
      */
     public static function getLinksByUser($post) {
-    
         return Link::getLinksByUser($post);
     }
 

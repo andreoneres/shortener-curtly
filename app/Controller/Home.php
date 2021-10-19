@@ -20,13 +20,13 @@ class Home extends Page
         $params = $request->getQueryParams();
         
         $user = Session::getUser();
-        $links = Links::getLinksByUser($user['ID_USER'], $post);
+        $links = Links::getLinksByUser($post);
 
         foreach($links['links'] as $key => $value){
             $links['links'][$key]['CREATE_DATE'] = date("d-m-Y H:i:s", strtotime($links['links'][$key]['CREATE_DATE']));
         }
        
-        if(!is_null($post)) {
+        if(isset($post->idlink)) {
             $link = Links::getLinkById($post->idlink);
             $link['CREATE_DATE'] = date("d-m-Y H:i:s", strtotime($link['CREATE_DATE']));
             
@@ -42,6 +42,7 @@ class Home extends Page
                 $links = null;
             }
         }
+
 
         //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
         return parent::getPage('manager/home', ['user' => $user, 'links' => $links, 'details' => $link, 'post' => $post, 'params' => $params]);
