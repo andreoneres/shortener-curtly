@@ -25,11 +25,18 @@ class User {
      * @var string
      */
     public $PASSWORD;
+     /**
+     * atributo da entidade
+     *
+     * @var string
+     */
+    public $IP;
 
     public function __construct($post) { 
       $this->NAME = $post->name ?? null;
       $this->EMAIL = $post->email ?? null;
       $this->PASSWORD = $post->password ?? null;
+      $this->IP = $_SERVER['REMOTE_ADDR'];
     }
 
     public function createUser() {
@@ -41,11 +48,18 @@ class User {
           throw new AppException('E-mail já existe!', 409);
         }
 
+        $ip = $user->select(
+        "COUNT(*)", "IP = '{$this->IP}'")[0];
+        if($ip['COUNT'] > 3) {
+          throw new AppException('Já existem 3 (três) contas registradas com esse IP!', 409);
+        }
+
         $result = $user->insert([
           'NAME' => $this->NAME,
           'EMAIL' => $this->EMAIL,
           'PASSWORD' => $this->PASSWORD,
-          'LAST_LOGIN' => date('Y-m-d')
+          'LAST_LOGIN' => date('Y-m-d'),
+          'IP' => $this->IP
         ]);
         
         return $result;

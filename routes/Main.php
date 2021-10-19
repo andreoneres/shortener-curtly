@@ -11,13 +11,6 @@ $obRouter->get('/',[
 ]);
 
 //ROTA HOME 
-$obRouter->post('/',[
-    function($request) {
-        return new Response(200,Controll\Main::getMain($request), 'text/html');
-    }
-]);
-
-//ROTA HOME 
 $obRouter->get('/404',[
     function() {
         return new Response(200,Controll\Erro404::get404(), 'text/html');

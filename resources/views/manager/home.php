@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200&family=Roboto:wght@300&family=Roboto:wght@400&family=Roboto:wght@500&family=Roboto:wght@900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="shortcut icon" href="assets/imgs/favicon.ico">
+    <link rel="shortcut icon" href="assets/img/favicon.ico">
     <link rel="stylesheet" href="assets/css/admin.css">
     <script src="assets/js/app.js"></script>
     <script src="assets/js/admin.js"></script>

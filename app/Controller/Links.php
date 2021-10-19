@@ -28,14 +28,14 @@ class Links extends Page {
                 throw new AppException('Este link personalizado já existe!', 409);
             } 
             if (preg_match('/[^a-zA-Z0-9_-]+/', $post->customlink)) {
-                throw new AppException('Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos.', 406);
+                throw new AppException('Link personalizado inválido. Apenas caracteres de A a Z, 0 a 9, e - são permitidos.', 406);
             }
 
             $post->customlink = str_replace(" ", "", trim($post->customlink));
         } 
 
         if (!preg_match('/[^a-zA-Z0-9_-]+/', $post->originallink)) {
-            throw new AppException('Link inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos.', 406);
+            throw new AppException('Link inválido. Apenas caracteres de A a Z, 0 a 9, e - são permitidos.', 406);
         }
 
         if ($post->originallink == "" || !strpos($post->originallink, '.') || Utils::validateUrl($post->originallink) == 0) {
@@ -69,7 +69,7 @@ class Links extends Page {
 
         if(strlen($post->customlink)) {
             if (preg_match('/[^a-zA-Z0-9_-]+/', $post->customlink)) {
-                throw new AppException('Link personalizado inválido. Apenas caracteres de <b>a</b> a <b>z</b>, <b>0</b> a <b>9</b>, e <b>-</b> são permitidos.', 406);
+                throw new AppException('Link personalizado inválido. Apenas caracteres de A a Z, 0 a 9, e - são permitidos.', 406);
             }
 
             $post->customlink = str_replace(" ", "", trim($post->customlink));
@@ -158,9 +158,9 @@ class Links extends Page {
      *  Método responsável por retornar os links de um usuário
      *  @return array
      */
-    public static function getLinksByUser($iduser, $post) {
+    public static function getLinksByUser($post) {
     
-        return Link::getLinksByUser($iduser, $post);
+        return Link::getLinksByUser($post);
     }
 
     /**

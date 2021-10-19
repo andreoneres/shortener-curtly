@@ -151,10 +151,11 @@ class Links {
 
     }
 
-    public static function deleteLink($idlink, $iduser) {
-        $where = "ID_LINK = {$idlink} AND ID_USER = {$iduser}";
+    public static function deleteLink($idlink) {
+        $id = USER['ID_USER'];
+        $where = "ID_LINK = {$idlink} AND ID_USER = {$id}";
         $delete = (new Database("LINKS"))->delete($where);
-        $log = Database::logs($iduser, 'Deletou o link ' . $idlink);
+        $log = Database::logs($id, 'Deletou o link ' . $idlink);
 
         return $log;
     }
@@ -222,9 +223,9 @@ class Links {
      *  Método responsável por verificar se o link original recebido existe.
      *  @return array
      */
-    public static function getLinksByUser($iduser, $post) {
-        $links = (new Database("LINKS"))->select("*", "ID_USER = '{$iduser}'", null, 'CREATE_DATE DESC');
-
+    public static function getLinksByUser($post) {
+        $id = USER['ID_USER'];
+        $links = (new Database("LINKS"))->select("*", "ID_USER = '{$id}'", null, 'CREATE_DATE DESC');
         $result = self::generatePagination($post, $pagination, $links);
         return $result;
     }
@@ -234,7 +235,8 @@ class Links {
      *  @return array
      */
     public static function getLinkById($idlink) {
-        $result = (new Database("LINKS"))->select("*", "ID_LINK = '{$idlink}'");
+        $id = USER['ID_USER'];
+        $result = (new Database("LINKS"))->select("*", "ID_LINK = '{$idlink}' AND ID_USER = '{$id}'");
         return $result[0];
     }
 

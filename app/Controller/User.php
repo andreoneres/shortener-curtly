@@ -16,7 +16,11 @@ class User{
     public static function createUser($request){
         
         $post = $request->getPostVars();
-    
+        
+        if(strlen($post->name) > 20) {
+            throw new AppException('Nome muito longo. Ele deve ter no máximo 20 caracteres', 200);
+        }
+
         if(strlen($post->password) && strlen($post->confirmpassword)){
             if(strlen($post->password) < 6) {
                 throw new AppException('Senha muito curta! Ela deve ser composta por pelo menos 6 caracteres.', 200);
