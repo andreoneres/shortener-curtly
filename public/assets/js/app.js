@@ -15,7 +15,6 @@ async function createLink() {
   });
 
   response = await response.json();
-
   console.log(response);
   if (typeof response.Dados.linkshortened !== "undefined") {
     const willCopy = await swal({

@@ -1,5 +1,5 @@
 <?php
-$server = "http://localhost"
+$server = URL
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

@@ -24,15 +24,19 @@ class Links extends Page {
         }
 
         if(strlen($post->customlink)) {
+            if(strlen($post->customlink) < 2 || strlen($post->customlink) > 12 ) {
+                throw new AppException('Tamanho do link personalizado inválido! Ele deve possuir mais de 2 caracteres e menos que 12 caracteres.', 409);
+            }
+
             if (Link::checkLinkExists($post->customlink) == 1) {
                 throw new AppException('Este link personalizado já existe!', 409);
             } 
             if (preg_match('/[^a-zA-Z0-9_-]+/', $post->customlink)) {
                 throw new AppException('Link personalizado inválido. Apenas caracteres de A a Z, 0 a 9, e - são permitidos.', 406);
             }
-
+            
             $post->customlink = str_replace(" ", "", trim($post->customlink));
-        } 
+        }
 
         if (!preg_match('/[^a-zA-Z0-9_-]+/', $post->originallink)) {
             throw new AppException('Link inválido. Apenas caracteres de A a Z, 0 a 9, e - são permitidos.', 406);
