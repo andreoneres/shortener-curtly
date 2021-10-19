@@ -82,6 +82,7 @@ async function createLink() {
     iduser: iduser,
     originallink: form.originalcreate.value,
     customlink: form.customcreate.value,
+    expiration: form.expirationcreate.value
   };
 
   let response = await sendRequest("criarlink", "POST", data);
@@ -114,6 +115,7 @@ async function editLink() {
     title: form.titleedit.value,
     iduser: iduser,
     customlink: form.customedit.value,
+    expiration: form.expirationedit.value,
     idlink: id,
   };
 

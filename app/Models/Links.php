@@ -21,6 +21,7 @@ class Links {
         $title = $post->title ?? NULL;
         $originallink = $post->originallink;
         $customlink = $post->customlink;
+        $expiration = $post->expiration == '' ? NULL : $post->expiration;
 
         $validate_exist_in_user = self::checkLinkExistsInUser($originallink);
         $validate_not_exist_in_user = self::checkLinkExistsNotInUser($originallink);
@@ -45,6 +46,7 @@ class Links {
                         'ORIGINAL' => $originallink, 
                         'SHORTENED' => $shortenedlink, 
                         'CUSTOM' => !strlen($customlink) ? NULL : $customlink, 
+                        'EXPIRATION' => $expiration,
                         'IP' => $ip, 
                         'CREATE_DATE' => $date];
                      //CHAMA O MÉTODO PARA INSERIR NO BANCO DE DADOS
@@ -83,6 +85,7 @@ class Links {
         $title = $post->title;
         $originallink = $post->originallink;
         $customlink = strlen($post->customlink) ? $post->customlink : NULL;
+        $expiration = $post->expiration == '' ? NULL : $post->expiration;
 
         //VERIFICA SE LINK CUSTOM JÁ EXISTE NO BANCO
         $custom = (new Database("LINKS"))->select("CUSTOM","CUSTOM = '{$customlink}' AND ID_LINK <> {$idlink}");
@@ -101,7 +104,7 @@ class Links {
         $values = [
             'TITLE' => $title, 
             'CUSTOM' => $customlink, 
-            'EXPIRATION' => $post->expiration
+            'EXPIRATION' => $expiration
         ];
 
         $where = "ID_LINK = {$idlink} AND ID_USER = '{$iduser}'";
@@ -173,6 +176,13 @@ class Links {
         $where = "ORIGINAL = '{$link}' OR SHORTENED = '{$link}' OR CUSTOM = '{$link}'";
         $result = (new Database("LINKS"))->select($fields, $where);
         return $result ? 1 : 0;
+    }
+
+    public static function getExpirationLink($link) {
+        $fields = 'EXPIRATION';
+        $where = "SHORTENED = '{$link}' OR CUSTOM = '{$link}'";
+        $result = (new Database("LINKS"))->select($fields, $where)[0];
+        return $result['EXPIRATION'];
     }
 
     /**

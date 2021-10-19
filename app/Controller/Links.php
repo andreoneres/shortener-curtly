@@ -113,17 +113,85 @@ class Links extends Page {
         return $data;
     }
 
+    /**
+     *  Método responsável por verificar se o link original recebido existe.
+     *  @return int
+     */
+    public static function checkLinkExists($link) {
+        return Link::checkLinkExists($link);
+    }
+
+    public static function getExpirationLink($link) {
+        return Link::getExpirationLink($link);
+    }
+
+    /**
+     *  Método responsável por verificar se o link original recebido existe.
+     *  @return int
+     */
+    public static function checkLinkExistsInUser($link) {
+        return Link::checkLinkExistsInUser($link);
+    }
+
+    /**
+     *  Método responsável por verificar se o link original recebido existe.
+     *  @return int
+     */
+    public static function checkLinkExistsNotInUser($link) {
+        return Link::checkLinkExistsNotInUser($link);
+    }
+
+    /**
+     *  Método responsável por verificar se o link original recebido existe.
+     *  @return int
+     */
+    public static function checkLinkExistsByUser($post) {
+        return Link::checkLinkExistsByUser($post);
+    }
+
     public static function getLinkById($idlink) {
         $result = Link::getLinkById($idlink);
         return $result;
     }
 
-    /**
+     /**
      *  Método responsável por retornar os links de um usuário
      *  @return array
      */
     public static function getLinksByUser($iduser, $post) {
     
         return Link::getLinksByUser($iduser, $post);
+    }
+
+    /**
+     *  Método responsável por retornar o link original a partir do link encurtado ou personalizado.
+     *  @return int
+     */
+    public static function getOriginalLink($link) {
+        return Link::getOriginalLink($link);
+    }
+
+    /**
+     *  Método responsável por retornar o link encurtado a partir do link original.
+     *  @return int
+     */
+    public static function getShortenedLink($link) {
+        return Link::getShortenedLink($link);
+    }
+
+    /**
+     *  Método responsável por retornar o link encurtado a partir do link original.
+     *  @return int
+     */
+    public static function getShortenedLinkNotUser($link) {
+        return Link::getShortenedLinkNotUser($link);
+    }
+
+    /**
+     *  Método responsável por retornar o link personalizado a partir do link original.
+     *  @return int
+     */
+    public static function getCustomLink($link) {
+        return Link::getCustomLink($link);
     }
 }
