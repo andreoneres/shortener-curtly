@@ -12,7 +12,7 @@ class User {
      *
      * @var string
      */
-    public $NOME;
+    public $NAME;
     /**
      * atributo da entidade
      *
@@ -36,6 +36,7 @@ class User {
       $this->NAME = $post->name ?? null;
       $this->EMAIL = $post->email ?? null;
       $this->PASSWORD = $post->password ?? null;
+      $this->NEWPASSWORD = $post->newpassword ?? null;
       $this->IP = $_SERVER['REMOTE_ADDR'];
     }
 
@@ -68,28 +69,28 @@ class User {
     public function updateUser($cod){
        
         $dbUser = new Database('USERS');
+
+        $email = $dbUser->select(
+          'EMAIL',"EMAIL = '{$this->EMAIL}' AND ID_USER <> '{$cod}'");
+        if($email){
+          throw new AppException('E-mail já existe!', 409);
+        }
   
         $values = $this->getValues();
         
         $where = "ID_USER = " . $cod;
 
-        $dbUser->update($values, $where);
+        $update = $dbUser->update($values, $where);
         
-        $fields = "*";
-        $where = "ID_USER = ". $cod;
-        return $dbUser->select($fields, $where)[0];
+        return $update;
   
       }
   
       private function getValues() {
-        $arr['NAME'] = $this->NOME;
-        $arr['LOGIN'] = $this->LOGIN;
-        if($this->PASSWORD != "") {
-          $arr['PASSWORD'] = $this->PASSWORD;
-        }
-
-        if($arr['PASSWORD']){
-          $arr['PASSWORD'] = password_hash($arr['PASSWORD'], PASSWORD_DEFAULT);
+        $arr['NAME'] = $this->NAME;
+        $arr['EMAIL'] = $this->EMAIL;
+        if($this->NEWPASSWORD != '') {
+          $arr['PASSWORD'] = $this->NEWPASSWORD;
         }
       
         return $arr;

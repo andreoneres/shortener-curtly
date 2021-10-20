@@ -37,18 +37,18 @@
                     <img src="assets/img/semfoto.jpg" alt="">
                 </div>
                 <div class="username">
-                    <h3><?= USER['NAME'] ?></h3>
+                    <h3><?= $user['NAME'] ?></h3>
                 </div>
                 <div class="conf_area">
                     <!-- ÍCONE DE CONFIGURAÇÃO -->
                     <div class="icon_conf">
                     </div>
                     <ul class="conf_open">
-                        <!-- <li class="conf_items">
-                            <a href="#">
+                        <li class="conf_items">
+                            <a id="profile">
                                 <img src="assets/svg/perfil.svg" alt="">Perfil
                             </a>
-                        </li> -->
+                        </li>
                         <li class="conf_items">
                             <a id="logout" onclick="logout()">
                                 <img src="assets/svg/sair.svg" alt="">Sair
@@ -200,6 +200,33 @@
             </div>
         </nav>
     </main>
+    <div class="modal-background" id="modal-background">
+        <div class="modal-container">
+            <div class="form-edituser-container">
+                <form id="form-edituser" action="javascript:editUser()">
+                    <div class="title">
+                        <h2>EDITAR DADOS</h2>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" placeholder="Nome" value="<?= $user['NAME'] ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" placeholder="E-mail" value="<?= $user['EMAIL'] ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" placeholder="Senha atual" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="newpassword" id="newpassword" placeholder="Nova senha">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirme sua nova senha">
+                    </div>
+                    <button type="submit" id="btn-edituser">Alterar</button>
+                </form>
+            </div>
+        </div>
+    </div>
     <footer class="footer">
         <div class="copyright">
             <span>Copyryght <?= Date('Y') ?> © Curtly</span>

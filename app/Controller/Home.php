@@ -19,7 +19,9 @@ class Home extends Page
         $post = $request->getPostVars();
         $params = $request->getQueryParams();
         
-        $user = Session::getUser();
+        $session = Session::getUser();
+        $user = User::getOne($session['ID_USER'])[0];
+
         $links = Links::getLinksByUser($post);
 
         foreach($links['links'] as $key => $value){

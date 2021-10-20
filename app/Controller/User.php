@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Models\Entities as Model;
 use App\Controller\Login;
 use App\Utils\AppException;
+use App\Utils\Session;
 
-class User{
+class User extends Page{
 
     /**
     * Método responsável por criar um novo usuário
@@ -50,13 +51,30 @@ class User{
     * @return array
     */
     public static function updateUser($request){
+        $user = Session::getUser();
         $post = $request->getPostVars();
 
-        if(strlen($post->cod) || strlen($post->nome) || strlen($post->login) || strlen($post->grupo) || strlen($post->ativo) || strlen($post->permissoes)) {
+        if(strlen($post->name) > 20) {
+            throw new AppException('Nome muito longo. Ele deve ter no máximo 20 caracteres', 200);
+        }
 
-            $cod = $post->cod;
-            unset($post->cod);
-            return (new Model\User($post))->updateUser($cod);
+        if(strlen($post->newpassword) && strlen($post->confirmpassword)){
+            if(strlen($post->newpassword) < 6) {
+                throw new AppException('Nova senha muito curta! Ela deve ser composta por pelo menos 6 caracteres.', 200);
+            } else if($post->confirmpassword == $post->newpassword){
+                $post->newpassword = password_hash($post->newpassword, PASSWORD_DEFAULT);
+            } else {
+                throw new AppException('A nova senha definida não é a mesma!', 200);
+            }
+        }
+
+        if(!password_verify($post->password, $user['PASSWORD'])){
+            throw new AppException('Senha atual incorreta!', 200);
+        }
+
+
+        if(strlen($post->name) && strlen($post->email) && strlen($post->password)) {
+            return (new Model\User($post))->updateUser($user['ID_USER']);
 
         }else{
             throw new AppException('Dados não preenchidos corretamente!', 200);
@@ -83,5 +101,4 @@ class User{
         return Model\User::getOne($cod);
 
     }
-
 }

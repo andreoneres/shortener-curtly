@@ -41,6 +41,16 @@ $obRouter->post('/editarlink',[
 ]);
 
 //ROTA HOME 
+$obRouter->post('/editarusuario',[
+    'middlewares' =>[
+        'authenticatedUser',
+    ],
+    function($request) {
+        return new Response(200,Controll\User::updateUser($request), 'application/json');
+    }
+]);
+
+//ROTA HOME 
 $obRouter->post('/deletarlink',[
     function($request) {
         return new Response(200,Controll\Links::deleteLink($request), 'application/json');

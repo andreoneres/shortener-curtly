@@ -1,8 +1,8 @@
-const url = "http://www.encurtador.com";
+const url = "http://www.encurtador.com"
 
 async function login() {
 
-    var form = document.getElementById('form-login');
+    var form = document.getElementById('form-login')
 
     let data = {
         email: form.email.value,
@@ -12,19 +12,19 @@ async function login() {
     let response = await fetch(`${url}/login`, {
         method: "POST",
         body: JSON.stringify(data),
-      });
-      response = await response.json();
+      })
+      response = await response.json()
 
       if(typeof response.Dados.ID_USER !== "undefined") {
-        sessionStorage.setItem('iduser', response.Dados.ID_USER);
-          window.location.href = "/home";
+        sessionStorage.setItem('iduser', response.Dados.ID_USER)
+          window.location.href = "/home"
       } else {
-          swal("Oops!", `${response.Dados}`, "warning");
+          swal("Oops!", `${response.Dados}`, "warning")
       }
 }
 
 async function register() {
-    var form = document.getElementById('form-register');
+    var form = document.getElementById('form-register')
 
     let data = {
         name: form.name.value,
@@ -36,23 +36,23 @@ async function register() {
     var response = await fetch(`${url}/cadastro`, {
         method: "POST",
         body: JSON.stringify(data),
-      });
+      })
 
-    response = await response.json();
-    console.log(response);
+    response = await response.json()
+    console.log(response)
 
     if(response.Dados == 'Dados registrados com sucesso!') {
         let login = await fetch(`${url}/login`, {
             method: "POST",
             body: JSON.stringify(data),
-        });
+        })
         login = await login.json()
-        sessionStorage.setItem('iduser', login.Dados.ID_USER);
-        swal("Sucesso!", "Sua conta foi criada com sucesso! Você será logado em alguns segundos...", "success");
+        sessionStorage.setItem('iduser', login.Dados.ID_USER)
+        swal("Sucesso!", "Sua conta foi criada com sucesso! Você será logado em alguns segundos...", "success")
         setInterval(() => {
-            window.location.href = "/home";
-        }, 4000);
+            window.location.href = "/home"
+        }, 4000)
     } else {
-        swal("Oops!", `${response.Dados}`, "warning");
+        swal("Oops!", `${response.Dados}`, "warning")
     }
 }

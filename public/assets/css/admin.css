@@ -248,7 +248,7 @@ body {
   user-select: none;
 }
 
-#logout {
+#logout, #profile {
   cursor: pointer;
 }
 
@@ -576,6 +576,74 @@ label {
   transform: translate3d(300px, 0, 0);
 }
 
+/* MODAL PARA ALTERAÇÃO DO USUÁRIO */
+
+.modal-background {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.733);
+  overflow: hidden;
+  z-index: 9;
+}
+
+.modal-container {
+  background: #fff;
+  width: 364px;
+}
+
+.form-edituser-container {
+  padding: 30px;
+}
+
+#form-edituser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title > h2 {
+  text-align: center;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+
+#form-edituser #email,
+#form-edituser #password {
+  direction: ltr;
+  font-size: 16px;
+}
+
+#form-edituser input {
+  width: 100%;
+  padding: 14px;
+}
+
+.form-group {
+  margin: 12px 0px;
+}
+
+#form-edituser label {
+  color: #fff;
+}
+
+#btn-edituser {
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4b5ec9;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
 @keyframes openmenu {
   from {
     transform: translate3d(300px, 0, 0);
@@ -586,3 +654,86 @@ label {
     opacity: 1;
   }
 }
+
+@media (max-width: 740px) {
+
+  .links {
+    flex-wrap: wrap;
+  }
+
+  .links-details {
+    width: 580px;
+    margin: 0;
+  }
+
+  .title-page {
+    display: none;
+  }
+
+  .conteudo {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 6px;
+    padding-right: 0px;
+    background-color: #c4c4c4;
+  }
+}
+
+@media (max-width: 713px) {
+
+  .container1 {
+    width: 95vw;
+  }
+
+  .links-created {
+    align-items: flex-start;
+  }
+
+  .link-single {
+    width: 78vw;
+    word-break: break-word;
+  }
+
+  .links-details {
+    width: 78vw;
+    height: 100%;
+  }
+
+  .original-details-link {
+    display: none;
+  }
+  
+  .top {
+    flex-wrap: wrap;
+  }
+
+  #total-results {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .icon_user, .username {
+    display: none;
+  }
+
+  .create-link {
+    margin: 0;
+  }
+
+  #search {
+    width: 66vw;
+  }
+}
+
+@media (max-width: 405px) {
+  .container1 {
+    width: 94vw;
+  }
+
+  .form-search {
+    margin-right: 0;
+  }
+}
+
