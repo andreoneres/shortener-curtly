@@ -1,5 +1,9 @@
 const url = "http://www.encurtador.com"
 
+/**
+  * Função responsável por realizar o login no site.
+  * @return null
+  */
 async function login() {
 
     var form = document.getElementById('form-login')
@@ -23,6 +27,10 @@ async function login() {
       }
 }
 
+/**
+  * Função responsável por registrar o usuário no site.
+  * @return null
+  */
 async function register() {
     var form = document.getElementById('form-register')
 
@@ -39,7 +47,6 @@ async function register() {
       })
 
     response = await response.json()
-    console.log(response)
 
     if(response.Dados == 'Dados registrados com sucesso!') {
         let login = await fetch(`${url}/login`, {

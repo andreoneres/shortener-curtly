@@ -125,6 +125,19 @@ a {
   border-bottom: 1px solid white;
 }
 
+#btn-login1 {
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 12px 24px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #4b5ec9;
+  font-weight: 500;
+  margin-bottom: 12px;
+  border-radius: 57px;
+}
+
 #btn-login {
   background-color: #fff;
   border-radius: 30px;
@@ -336,7 +349,7 @@ a {
 .container {
   display: flex;
   justify-content: center;
-  padding: 165px 100px;
+  padding: 123px 100px;
 }
 
 .content-main {

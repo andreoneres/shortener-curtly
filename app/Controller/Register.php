@@ -7,7 +7,7 @@ use App\Utils\Message;
 class Register extends Page {
 
     /**
-     *  Método responsável por retornar o conteúdo (view) .
+     *  Método responsável por retornar o conteúdo (view) da página de registro.
      *  @return string
      */
     public static function getView(){ 

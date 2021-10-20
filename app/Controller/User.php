@@ -10,7 +10,7 @@ use App\Utils\Session;
 class User extends Page{
 
     /**
-    * Método responsável por criar um novo usuário
+    * Método responsável por criar um novo usuário.
     * @param array
     * @return array
     */
@@ -46,7 +46,7 @@ class User extends Page{
     }
 
     /**
-    * Método responsável por atualizar um usuário
+    * Método responsável por atualizar um usuário.
     * @param array
     * @return array
     */
@@ -84,7 +84,7 @@ class User extends Page{
     }
 
     /**
-    * Método responsável por retornar todos os usuários
+    * Método responsável por retornar todos os usuários.
     * @return array
     */
     public static function getAll(){
@@ -94,7 +94,7 @@ class User extends Page{
     }
 
     /**
-    * Método responsável por retornar um usuário especifico
+    * Método responsável por retornar um usuário especifico.
     * @return array
     */
     public static function getOne($cod){

@@ -9,7 +9,7 @@ use App\Utils\Session;
 class Login extends Page {
 
     /**
-     *  Método responsável por retornar o conteúdo (view) .
+     *  Método responsável por retornar o conteúdo (view) da página de login.
      *  @return string
      */
     public static function getView($request){ 

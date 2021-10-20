@@ -1,5 +1,9 @@
 const server = "http://www.encurtador.com"
 
+/**
+  * Função responsável por criar um novo link.
+  * @return null
+  */
 async function createLink() {
   var form = document.getElementById("form-create-link")
   document.getElementById("btn-1").disabled = true
@@ -15,7 +19,7 @@ async function createLink() {
   })
 
   response = await response.json()
-  console.log(response)
+ 
   if (typeof response.Dados.linkshortened !== "undefined") {
     const willCopy = await swal({
       title: "Bom trabalho!",
@@ -43,6 +47,10 @@ async function createLink() {
   document.getElementById("btn-1").disabled = false
 }
 
+/**
+  * Função responsável por copiar o link encurtado.
+  * @return null
+  */
 function copyText() {
     var range = document.createRange()
     range.selectNode(document.querySelector(".swal-content__input"))

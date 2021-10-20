@@ -10,12 +10,11 @@ use App\Utils\AppException;
 class Main extends Page {
 
     /**
-     *  Método responsável por retornar o conteúdo (view) da home.
+     *  Método responsável por retornar o conteúdo (view) da main.
      *  @return string
      */
     public static function getMain($request) { 
 
-       //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
         return parent::getPageTemplate('pages/main');
     }
 }

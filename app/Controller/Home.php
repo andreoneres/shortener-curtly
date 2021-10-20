@@ -45,7 +45,6 @@ class Home extends Page
             }
         }
 
-
         //RETORNA A VIEW COM OS DADOS RECEBIDOS DO MODEL
         return parent::getPage('manager/home', ['user' => $user, 'links' => $links, 'details' => $link, 'post' => $post, 'params' => $params]);
     }

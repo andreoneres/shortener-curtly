@@ -4,16 +4,23 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 100px;
 }
 
 .title-404 {
     color: #fff;
+    border-bottom: 29px solid white;
+}
+
+.title-404 > h1 {
+    font-size: 143px;
 }
 
 .desc-404 {
     color: #fff;
+    font-size: 20px;
+    margin-bottom: 15px;
 }
+
 .middle {
     margin: 40px 10px;
 }

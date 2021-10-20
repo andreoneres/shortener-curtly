@@ -2,7 +2,7 @@
     <div class="container">
         <div class="content-404">
             <div class="title-404">
-                <h1>Página em Construção!</h1>
+                <h1>404</h1>
             </div>
             <div class="desc-404">
                 <p class="middle">Opss...! Se você caiu nesta página é porque o link digitado não existe...</p>

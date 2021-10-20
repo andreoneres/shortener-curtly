@@ -3,14 +3,14 @@
 use App\Http\Response;
 use App\Controller as Controll;
 
-//ROTA HOME 
+//ROTA MAIN
 $obRouter->get('/',[
     function($request) {
         return new Response(200,Controll\Main::getMain($request), 'text/html');
     }
 ]);
 
-//ROTA HOME 
+//ROTA PÁGINA 404
 $obRouter->get('/404',[
     function() {
         return new Response(200,Controll\Erro404::get404(), 'text/html');
@@ -24,14 +24,14 @@ $obRouter->get('/logout',[
     }
 ]);
 
-//ROTA HOME 
+//ROTA LOGIN 
 $obRouter->post('/login',[
     function($request) {
         return new Response(200,Controll\Login::checkLogin($request));
     }
 ]);
 
-//ROTA HOME 
+//ROTA LOGIN 
 $obRouter->get('/login',[
     function($request) {
         return new Response(200,Controll\Login::getView($request), 'text/html');

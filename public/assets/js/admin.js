@@ -1,80 +1,10 @@
 const iduser = sessionStorage.getItem("iduser")
-//PAINEL ADMINISTRATIVO
-async function searchLink() {
-  var form = document.querySelector(".form-search-link")
-  var search = form.search.value
 
-  let response = await sendRequest(`home?search=${search}`, "GET")
-  response = await response.text()
-
-  var parser = new DOMParser()
-  var doc = parser.parseFromString(response, "text/html")
-  var content = doc.querySelector(".links-created").innerHTML
-  document.querySelector(".links-created").innerHTML = content
-
-  var content = doc.querySelector("#total-results").innerHTML
-  document.querySelector("#total-results").innerHTML = content
-  updateDetails
-}
-
-async function updateLinks() {
-  let response = await sendRequest("home", "GET")
-
-  response = await response.text()
-
-  var parser = new DOMParser()
-  var doc = parser.parseFromString(response, "text/html")
-  
-  var content = doc.querySelector(".links-created").innerHTML
-  document.querySelector(".links-created").innerHTML = content
-
-  var content = doc.querySelector("#total-results").innerHTML
-  document.querySelector("#total-results").innerHTML = content
-}
-
-async function updateDetails(idlink) {
-  let response = await sendRequest("home", "GET")
-
-  response = await response.text()
-
-  var parser = new DOMParser()
-  var doc = parser.parseFromString(response, "text/html")
-  var content = doc.querySelector(".links-details").innerHTML
-  document.querySelector(".links-details").innerHTML = content
-}
-
-async function viewDetailsLink(idlink) {
-  let data = {
-    idlink: idlink,
-  }
-
-  let response = await sendRequest("home", "POST", data)
-
-  response = await response.text()
-
-  var parser = new DOMParser()
-  var doc = parser.parseFromString(response, "text/html")
-
-  var content = doc.querySelector(".links-details").innerHTML
-  document.querySelector(".links-details").innerHTML = content
-}
-
-async function alterPagination(page) {
-  let data = {
-    pagina: page,
-  }
-
-  let response = await sendRequest("home", "POST", data)
-
-  response = await response.text()
-
-  var parser = new DOMParser()
-  var doc = parser.parseFromString(response, "text/html")
-  var content = doc.querySelector(".links-created").innerHTML
-  document.querySelector(".links-created").innerHTML = content
-}
-
-async function createLink() {
+/**
+  * Função responsável por criar um novo link.
+  * @return null
+  */
+ async function createLink() {
   var form = document.getElementById("form-link-create")
   document.getElementById("create-link-btn").disabled = true
   let data = {
@@ -89,7 +19,6 @@ async function createLink() {
 
   response = await response.json()
 
-  console.log(response)
   if(response.Status !== 200) {
     swal("Oops!", `${response.Dados}`, "warning")
     document.getElementById("create-link-btn").disabled = false
@@ -106,6 +35,10 @@ async function createLink() {
 
 }
 
+/**
+  * Função responsável por editar um novo link.
+  * @return null
+  */
 async function editLink() {
   var form = document.getElementById("form-link-edit")
   var id = document.querySelector(".links-info").id
@@ -122,7 +55,6 @@ async function editLink() {
   let response = await sendRequest("editarlink", "POST", data)
 
   response = await response.json()
-  console.log(response)
 
   if(response.Status !== 200) {
     swal("Oops!", `${response.Dados}`, "warning")
@@ -139,6 +71,10 @@ async function editLink() {
   }
 }
 
+/**
+  * Função responsável por deletar um link.
+  * @return null
+  */
 async function deleteLink(idlink) {
   let data = {
     idlink: idlink,
@@ -158,7 +94,7 @@ async function deleteLink(idlink) {
 
     response = await response.json()
 
-    console.log(response)
+
 
     updateLinks()
     updateDetails()
@@ -167,6 +103,10 @@ async function deleteLink(idlink) {
   }
 }
 
+/**
+  * Função responsável por editar os dados do usuário.
+  * @return null
+  */
 async function editUser() {
   var form = document.getElementById("form-edituser")
   document.getElementById("btn-edituser").disabled = true
@@ -204,6 +144,104 @@ async function editUser() {
   }
 }
 
+/**
+  * Função responsável por pesquisar links a partir da busca do usuário.
+  * @return null
+  */
+async function searchLink() {
+  var form = document.querySelector(".form-search-link")
+  var search = form.search.value
+
+  let response = await sendRequest(`home?search=${search}`, "GET")
+  response = await response.text()
+
+  var parser = new DOMParser()
+  var doc = parser.parseFromString(response, "text/html")
+  var content = doc.querySelector(".links-created").innerHTML
+  document.querySelector(".links-created").innerHTML = content
+
+  var content = doc.querySelector("#total-results").innerHTML
+  document.querySelector("#total-results").innerHTML = content
+  updateDetails
+}
+
+/**
+  * Função responsável por atualizar os links da tela.
+  * @return null
+  */
+async function updateLinks() {
+  let response = await sendRequest("home", "GET")
+
+  response = await response.text()
+
+  var parser = new DOMParser()
+  var doc = parser.parseFromString(response, "text/html")
+  
+  var content = doc.querySelector(".links-created").innerHTML
+  document.querySelector(".links-created").innerHTML = content
+
+  var content = doc.querySelector("#total-results").innerHTML
+  document.querySelector("#total-results").innerHTML = content
+}
+
+/**
+  * Função responsável por atualizar os detalhes do link selecionado.
+  * @return null
+  */
+async function updateDetails(idlink) {
+  let response = await sendRequest("home", "GET")
+
+  response = await response.text()
+
+  var parser = new DOMParser()
+  var doc = parser.parseFromString(response, "text/html")
+  var content = doc.querySelector(".links-details").innerHTML
+  document.querySelector(".links-details").innerHTML = content
+}
+
+/**
+  * Função responsável por atualizar o modal com os detalhes do link selecionado.
+  * @return null
+  */
+async function viewDetailsLink(idlink) {
+  let data = {
+    idlink: idlink,
+  }
+
+  let response = await sendRequest("home", "POST", data)
+
+  response = await response.text()
+
+  var parser = new DOMParser()
+  var doc = parser.parseFromString(response, "text/html")
+
+  var content = doc.querySelector(".links-details").innerHTML
+  document.querySelector(".links-details").innerHTML = content
+}
+
+/**
+  * Função responsável por alterar a paginação dos links.
+  * @return null
+  */
+async function alterPagination(page) {
+  let data = {
+    pagina: page,
+  }
+
+  let response = await sendRequest("home", "POST", data)
+
+  response = await response.text()
+
+  var parser = new DOMParser()
+  var doc = parser.parseFromString(response, "text/html")
+  var content = doc.querySelector(".links-created").innerHTML
+  document.querySelector(".links-created").innerHTML = content
+}
+
+/**
+  * Função responsável por puxar os dados de um link ao clicar em Editar.
+  * @return null
+  */
 async function getDataLink(idlink) {
   var menuedit = document.querySelector(".menu-edit-link")
   menuedit.classList.add("open-menu")
@@ -218,6 +256,10 @@ async function getDataLink(idlink) {
   document.getElementById("expirationedit").value = response.Dados.EXPIRATION
 }
 
+/**
+  * Função responsável por realizar uma requisição e retornar a resposta.
+  * @return promise
+  */
 async function sendRequest(url, method, data = null) {
   if (method == "GET") {
     var response = await fetch(`${server}/${url}`, {
@@ -235,19 +277,66 @@ async function sendRequest(url, method, data = null) {
   return response
 }
 
+/**
+  * Função responsável por encerrar a sessão do usuário.
+  * @return null
+  */
 function logout() {
   sessionStorage.clear()
   document.location.href = "/logout"
 }
 
+/**
+  * Função responsável por abrir o modal para criação de link.
+  * @return null
+  */
 function openCreateLink() {
   var menucreate = document.querySelector(".menu-create-link")
   menucreate.classList.add("open-menu")
   menucreate.classList.remove("close-menu")
 }
 
-//CRIAR LINK
+/**
+  * Evento responsável por abrir e fechar o modal de alteração de dados do usuário.
+  * @return null
+  */
 window.addEventListener("load",function(event) {
+  var profile = document.querySelector("#profile")
+  var modaledituser = document.querySelector(".modal-background")
+
+  profile.addEventListener("click", function () {
+    modaledituser.style.display = "flex"
+  })
+
+  modaledituser.addEventListener("click", function (e) {
+    if(e.target.id == 'modal-background') {
+      modaledituser.style.display = "none"
+    }
+  })
+
+},false)
+
+/**
+  * Evento responsável por abrir e fechar o menu de configuração.
+  * @return null
+  */
+window.addEventListener("load",function(event) {
+  var menuconf = document.querySelector(".icon_conf")
+  var confopen = document.querySelector(".conf_open")
+  menuconf.addEventListener("click", function () {
+      if (confopen.style.display == "block") {
+          confopen.style.display = "none" 
+      } else {
+          confopen.style.display = "block" 
+      }
+  })
+},false)
+
+/**
+  * Evento responsável por abrir e fechar o modal para criação de link.
+  * @return null
+  */
+ window.addEventListener("load",function(event) {
   var menu = document.querySelector(".create-link")
   var menucreate = document.querySelector(".menu-create-link")
   var menuedit = document.querySelector(".menu-edit-link")
@@ -269,33 +358,4 @@ window.addEventListener("load",function(event) {
     menuedit.classList.add("close-menu")
   })
 
-},false)
-
-window.addEventListener("load",function(event) {
-  var profile = document.querySelector("#profile")
-  var modaledituser = document.querySelector(".modal-background")
-
-  profile.addEventListener("click", function () {
-    modaledituser.style.display = "flex"
-  })
-
-  modaledituser.addEventListener("click", function (e) {
-    if(e.target.id == 'modal-background') {
-      modaledituser.style.display = "none"
-    }
-  })
-
-},false)
-
-// função que abre e fecha o menu de configuração
-window.addEventListener("load",function(event) {
-  var menuconf = document.querySelector(".icon_conf")
-  var confopen = document.querySelector(".conf_open")
-  menuconf.addEventListener("click", function () {
-      if (confopen.style.display == "block") {
-          confopen.style.display = "none" 
-      } else {
-          confopen.style.display = "block" 
-      }
-  })
 },false)

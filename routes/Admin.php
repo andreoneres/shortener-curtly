@@ -23,14 +23,14 @@ $obRouter->post('/home',[
     }
 ]);
 
-//ROTA HOME 
+//ROTA CRIAR LINK
 $obRouter->post('/criarlink',[
     function($request) {
         return new Response(200,Controll\Links::createLink($request), 'application/json');
     }
 ]);
 
-//ROTA HOME 
+//ROTA EDITAR LINK 
 $obRouter->post('/editarlink',[
     'middlewares' =>[
         'authenticatedUser',
@@ -40,7 +40,7 @@ $obRouter->post('/editarlink',[
     }
 ]);
 
-//ROTA HOME 
+//ROTA EDITAR USUÁRIO
 $obRouter->post('/editarusuario',[
     'middlewares' =>[
         'authenticatedUser',
@@ -50,14 +50,14 @@ $obRouter->post('/editarusuario',[
     }
 ]);
 
-//ROTA HOME 
+//ROTA DELETAR LINK
 $obRouter->post('/deletarlink',[
     function($request) {
         return new Response(200,Controll\Links::deleteLink($request), 'application/json');
     }
 ]);
 
-//ROTA HOME 
+//ROTA PEGAR DADOS DE UM LINK
 $obRouter->get('/link/{id}',[
     'middlewares' =>[
         'authenticatedUser',

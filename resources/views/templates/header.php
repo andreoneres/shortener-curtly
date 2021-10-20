@@ -49,7 +49,7 @@
                             <li><a href="/">Home</a></li>
                             <li><a href="/#whys">Sobre</a></li>
                             <li><a href="mailto:encurtadorcurtly@gmail.com">Contato</a></li>
-                            <li><a id="btn-login" href="login">Login</a></li>
+                            <li><a id="btn-login1" href="login">Login</a></li>
                         </ul>
                     </div>
                     <div class="menu-icon">

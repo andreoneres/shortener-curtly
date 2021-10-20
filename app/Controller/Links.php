@@ -11,7 +11,7 @@ use App\Utils\Session;
 class Links extends Page {
 
     /**
-     *  Método responsável por retornar o conteúdo (view) da home.
+     *  Método responsável por validar o link enviado pelo usuário.
      *  @return string
      */
     public static function validateLink($post) { 
@@ -57,6 +57,10 @@ class Links extends Page {
         return $data;
     }
 
+    /**
+     *  Método responsável por encurtar um novo link.
+     *  @return array
+     */
     public static function createLink($request) {
         $post = $request->getPostVars();
         $validate = self::validateLink($post);
@@ -68,6 +72,10 @@ class Links extends Page {
         return $data;
     }
 
+    /**
+     *  Método responsável por editar um determinado link.
+     *  @return array
+     */
     public static function updateLink($request) {
         $post = $request->getPostVars();
 
@@ -85,6 +93,10 @@ class Links extends Page {
         return $data;
     }
 
+    /**
+     *  Método responsável por deletar um determinado link.
+     *  @return array
+     */
     public static function deleteLink($request) {
         $post = $request->getPostVars();
 
@@ -95,11 +107,18 @@ class Links extends Page {
         return $data;
     }
 
+    /**
+     *  Método responsável por inserir um click ao link encurtado que foi acessado.
+     *  @return null
+     */
     public static function insertClick($link) {
-
         $data = Link::insertClick($link);
     }
 
+    /**
+     *  Método responsável por pesquisar links a partir da busca do usuário.
+     *  @return null
+     */
     public static function searchLink($request) {
         $params = $request->getQueryParams();
         $post = $request->getPostVars();
@@ -118,27 +137,31 @@ class Links extends Page {
     }
 
     /**
-     *  Método responsável por verificar se o link original recebido existe.
+     *  Método responsável por verificar se um link já existe no banco.
      *  @return int
      */
     public static function checkLinkExists($link) {
         return Link::checkLinkExists($link);
     }
 
+    /**
+     *  Método responsável por retornar a expiração de um link, caso exista.
+     *  @return string
+     */
     public static function getExpirationLink($link) {
         return Link::getExpirationLink($link);
     }
 
     /**
-     *  Método responsável por verificar se o link original recebido existe.
+     *  Método responsável por verificar se o link já foi encurtado pelo usuário.
      *  @return int
      */
     public static function checkLinkExistsInUser($link) {
         return Link::checkLinkExistsInUser($link);
     }
 
-    /**
-     *  Método responsável por verificar se o link original recebido existe.
+   /**
+     *  Método responsável por verificar se o link não foi encurtado pelo usuário.
      *  @return int
      */
     public static function checkLinkExistsNotInUser($link) {
@@ -146,20 +169,24 @@ class Links extends Page {
     }
 
     /**
-     *  Método responsável por verificar se o link original recebido existe.
+     *  Método responsável por verificar se o link já foi encurtado pelo usuário.
      *  @return int
      */
     public static function checkLinkExistsByUser($post) {
         return Link::checkLinkExistsByUser($post);
     }
 
+    /**
+     *  Método responsável por retornar um link a partir do seu ID.
+     *  @return array
+     */
     public static function getLinkById($idlink) {
         $result = Link::getLinkById($idlink);
         return $result;
     }
 
      /**
-     *  Método responsável por retornar os links de um usuário
+     *  Método responsável por retornar os links encurtados de um usuário.
      *  @return array
      */
     public static function getLinksByUser($post) {
@@ -168,7 +195,7 @@ class Links extends Page {
 
     /**
      *  Método responsável por retornar o link original a partir do link encurtado ou personalizado.
-     *  @return int
+     *  @return string
      */
     public static function getOriginalLink($link) {
         return Link::getOriginalLink($link);
@@ -176,15 +203,15 @@ class Links extends Page {
 
     /**
      *  Método responsável por retornar o link encurtado a partir do link original.
-     *  @return int
+     *  @return string
      */
     public static function getShortenedLink($link) {
         return Link::getShortenedLink($link);
     }
 
     /**
-     *  Método responsável por retornar o link encurtado a partir do link original.
-     *  @return int
+     *  Método responsável por retornar o link encurtado que não está ligado a nenhum usuário.
+     *  @return string
      */
     public static function getShortenedLinkNotUser($link) {
         return Link::getShortenedLinkNotUser($link);
@@ -192,7 +219,7 @@ class Links extends Page {
 
     /**
      *  Método responsável por retornar o link personalizado a partir do link original.
-     *  @return int
+     *  @return string
      */
     public static function getCustomLink($link) {
         return Link::getCustomLink($link);

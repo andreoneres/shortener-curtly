@@ -1,3 +1,7 @@
+/**
+  * Evento responsável por alterar o tamanho da fonte da Main.
+  * @return null
+  */
 window.addEventListener("load",function(event) {
     var increase = document.querySelector("#increase")
     var decrease = document.querySelector("#decrease")
@@ -11,6 +15,10 @@ window.addEventListener("load",function(event) {
     }) 
 },false)
 
+/**
+  * Evento responsável por adicionar e remover o contraste do site.
+  * @return null
+  */
 window.addEventListener("load",function(event) {
     var nocontrast = document.querySelector("#white")
     var contrastblack = document.querySelector("#black")
@@ -31,6 +39,10 @@ window.addEventListener("load",function(event) {
     })
 },false)
 
+/**
+  * Evento responsável por abrir e fechar o menu mobile.
+  * @return null
+  */
 window.addEventListener("load",function(event) {
     var menu = document.querySelector(".menu-icon")
     var menumobile = document.querySelector(".menu-mobile")
@@ -47,6 +59,10 @@ window.addEventListener("load",function(event) {
   })
 },false)
 
+/**
+  * Evento responsável por alterar as abas do menu mobile.
+  * @return null
+  */
 window.addEventListener("load",function(event) {
     var menu = document.querySelector("#menu-tab-select")
     var menutab = document.querySelector(".menu-tab")

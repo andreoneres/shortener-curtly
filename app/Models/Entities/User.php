@@ -40,6 +40,10 @@ class User {
       $this->IP = $_SERVER['REMOTE_ADDR'];
     }
 
+    /**
+     *  Método responsável por criar um novo usuário.
+     *  @return string
+     */
     public function createUser() {
         $user = new Database('USERS');
   
@@ -66,6 +70,10 @@ class User {
         return $result;
     }
 
+    /**
+     *  Método responsável por atualizar os dados do usuário.
+     *  @return string
+     */
     public function updateUser($cod){
        
         $dbUser = new Database('USERS');
