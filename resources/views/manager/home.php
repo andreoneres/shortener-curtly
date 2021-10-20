@@ -152,7 +152,7 @@
         <nav class="menu-create-link">
             <div class="topmenu">
                 <h2 class="title-aba">ENCURTAR LINK</h2>
-                <a id="close-create"><img src="<?= $server ?>/assets/svg/fecharmenu.svg" alt=""></a>
+                <a id="close-create"><img src="/assets/svg/fecharmenulink.svg" alt=""></a>
             </div>
             <div class="menu-tab">
                 <form id="form-link-create" method="post" action="javascript:createLink()">
@@ -179,7 +179,7 @@
         <nav class="menu-edit-link">
             <div class="topmenu">
                 <h2 class="title-aba">EDITAR LINK</h2>
-                <a id="close-edit"><img src="<?= $server ?>/assets/svg/fecharmenu.svg" alt=""></a>
+                <a id="close-edit"><img src="/assets/svg/fecharmenulink.svg" alt=""></a>
             </div>
             <div class="menu-tab">
                 <form id="form-link-edit" method="post" action="javascript:editLink()">

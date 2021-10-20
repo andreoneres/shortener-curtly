@@ -68,7 +68,6 @@ async function alterPagination(page) {
 
   response = await response.text();
 
-  console.log(response);
   var parser = new DOMParser();
   var doc = parser.parseFromString(response, "text/html");
   var content = doc.querySelector(".links-created").innerHTML;

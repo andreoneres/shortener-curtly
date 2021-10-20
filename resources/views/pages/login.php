@@ -21,7 +21,7 @@
                     <h1>ENTRAR</h1>
                 </div>
                 <div class="image">
-                    <img src="assets/img/avatar.png" alt="" width="96" height="96">
+                    <img src="assets/img/avatar.png" alt="" width="96" height="96" style="border-radius: 50%">
                 </div>
                 <div class="error-container">
                     <h2 id="error" style="color: red"></h2>

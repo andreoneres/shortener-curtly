@@ -1,4 +1,4 @@
-var server = "http://www.encurtador.com";
+const url = "http://www.encurtador.com";
 
 async function login() {
 
@@ -9,7 +9,7 @@ async function login() {
         password: form.password.value,
     }
 
-    let response = await fetch(`${server}/login`, {
+    let response = await fetch(`${url}/login`, {
         method: "POST",
         body: JSON.stringify(data),
       });
@@ -33,7 +33,7 @@ async function register() {
         confirmpassword: form.confirmpassword.value
     }
 
-    var response = await fetch(`${server}/cadastro`, {
+    var response = await fetch(`${url}/cadastro`, {
         method: "POST",
         body: JSON.stringify(data),
       });
@@ -42,7 +42,7 @@ async function register() {
     console.log(response);
 
     if(response.Dados == 'Dados registrados com sucesso!') {
-        let login = await fetch(`${server}/login`, {
+        let login = await fetch(`${url}/login`, {
             method: "POST",
             body: JSON.stringify(data),
         });

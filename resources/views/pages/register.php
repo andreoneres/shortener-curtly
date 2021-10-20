@@ -20,9 +20,7 @@
                 <div class="title">
                     <h1>CADASTRE-SE</h1>
                 </div>
-                <div class="image">
-                    <img src="assets/img/avatar.png" alt="" width="96" height="96">
-                </div>
+                        <img src="assets/img/avatar.png" alt="" width="96" height="96" style="border-radius: 50%">
                 <div class="error-container">
                     <h2 id="error" style="color: red"></h2>
                 </div>

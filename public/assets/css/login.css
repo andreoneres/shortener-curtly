@@ -46,8 +46,10 @@ button {
   margin-bottom: 10px;
 }
 
-.image > img {
-  border-radius: 60px;
+.image  a {
+  display: none;
+  width: 0px !important;
+  height: 0px;
 }
 
 #form-login #email,

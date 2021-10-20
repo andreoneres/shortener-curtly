@@ -12,8 +12,13 @@ class Login extends Page {
      *  Método responsável por retornar o conteúdo (view) .
      *  @return string
      */
-    public static function getView(){ 
+    public static function getView($request){ 
 
+        $session = Session::getUser();
+        if(!is_null($session)) {
+            header('Location: /home');
+            exit;
+        }
         return parent::getPage('pages/login');
      
     }

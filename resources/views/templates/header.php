@@ -1,6 +1,3 @@
-<?php
-$server = URL
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -17,6 +14,7 @@ $server = URL
     <script src="assets/js/app.js"></script>
     <script src="assets/js/events.js"></script>
     <script src="assets/js/sweetalert.js"></script>
+    <script src="/assets/js/session.js"></script>
     <title>Curtly - Encurtador de URLs</title>
 </head>
 
@@ -62,12 +60,12 @@ $server = URL
                     <nav class="menu-mobile">
                         <div class="topmenu">
                             <ul>
-                                <li><a><img src="<?= $server ?>/assets/svg/menu.svg" alt=""></a></li>
-                                <li><a><img src="<?= $server ?>/assets/svg/usuario.svg" alt=""></a></li>
-                                <li><a id="close"><img src="<?= $server ?>/assets/svg/fecharmenu.svg" alt=""></a></li>
+                                <li><a class="active-color" id="menu-tab-select"><img src="/assets/svg/menu.svg" alt=""></a></li>
+                                <li><a id="account-tab-select"><img src="/assets/svg/usuario.svg" alt=""></a></li>
+                                <li><a id="close"><img src="/assets/svg/fecharmenu.svg" alt=""></a></li>
                             </ul>
                         </div>
-                        <div class="menu-tab">
+                        <div class="menu-tab active">
                             <ul>
                                 <li><a href="/">Home</a></li>
                                 <li><a href="/#whys">Sobre</a></li>
@@ -75,7 +73,25 @@ $server = URL
                             </ul>
                         </div>
                         <div class="account-tab">
-
+                            <form id="form-login" action="javascript:login()" method="post">
+                                <div class="title-menu">
+                                    <h3>ENTRAR</h3>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" placeholder="E-mail" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" placeholder="Senha" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="remember" id="remember">
+                                    <label for="">Lembrar login</label>
+                                </div>
+                                <button type="submit" id="btn-login">Acessar</button>
+                            </form>
+                            <div class="redirect-register">
+                                <a href="cadastro">Não possue conta? Cadastre-se!</a>
+                            </div>
                         </div>
                     </nav>
                     <div class="complement">

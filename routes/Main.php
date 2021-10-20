@@ -33,8 +33,8 @@ $obRouter->post('/login',[
 
 //ROTA HOME 
 $obRouter->get('/login',[
-    function() {
-        return new Response(200,Controll\Login::getView(), 'text/html');
+    function($request) {
+        return new Response(200,Controll\Login::getView($request), 'text/html');
     }
 ]);
 
