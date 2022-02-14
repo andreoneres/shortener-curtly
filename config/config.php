@@ -20,7 +20,7 @@ use App\Database\Database;
 $envPath = realpath(dirname(__FILE__,2));
 Environment::load($envPath);
 
-define('URL','http://www.encurtador.com');
+define('URL', getenv('URL'));
 
 Database::config(
   getenv('DB_HOST'),
