@@ -26,7 +26,7 @@ Deixarei algumas imagens do front-end do sistema para que possam ter uma ideia d
 
 ![img.png](https://i.imgur.com/mWLAw4W.png)
 
-### Página final da página inicial
+#### Final da página inicial
 ![img.png](https://i.imgur.com/GfG1k9F.png)
 
 ### Página de login
